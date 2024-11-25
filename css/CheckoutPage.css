@@ -1,0 +1,524 @@
+@font-face {
+   
+    src: url(../fonts/VastShadow-Regular.ttf);
+    font-family: VastShadow;
+
+}
+@font-face {
+   
+    src: url(../fonts/Acme-Regular.ttf);
+    font-family: Acme;
+
+}
+@font-face {
+   
+    src: url(../fonts/Inter-VariableFont_opsz,wght.ttf);
+    font-family: Inter;
+
+}
+@font-face {
+   
+    src: url(../fonts/LibreCaslonText-Regular.ttf);
+    font-family: LibreCaslonText;
+
+}
+@font-face {
+   
+    src: url(../fonts/Lusitana-Regular.ttf);
+    font-family: Lusitana;
+
+}
+@font-face {
+   
+    src: url(../fonts/LuxuriousRoman-Regular.ttf);
+    font-family: LuxuriousRoman;
+
+}
+
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('../IMAGE/BG.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.navbar {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    background-color: rgba(255, 255, 255, .16);
+    padding: 10;
+    height: 50px;
+   
+}
+
+.logo {
+    height: 50px;
+    margin: 0;
+}
+
+.Checkout h1{
+    color: rgba(195, 43, 255, 1);
+    font-family: VastShadow;
+    font-weight: 100;
+    
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    background-color: #A929FA;
+    border: #ffffff 2px solid;
+    border-radius: 30px;
+    padding: 5px;
+    height: 40px;
+}
+
+.search-container input{
+    background-color: transparent;
+}
+.search-container input ::placeholder{
+    color: #000000;
+    font-family: VastShadow;
+    font-size: medium;
+}
+#search-bar {
+    padding: 8px;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    flex: 1;
+}
+
+#search-icon {
+    padding: 8px;
+    
+    color: #fff;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+#search-icon img {
+    width: 20px;
+    height: 20px;
+}
+.cart-user{
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+.cart-user img{
+    width: 30px;
+    height: 30px;
+    margin: 0 10px;
+
+}
+.cart-user span{
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 5px;
+    height: 30px;
+    
+}
+
+
+.CheckoutBox{
+    background-color: rgba(60, 21, 105, 0.68);
+    position: absolute;
+    left: 5%;
+    top: 10%;
+    width: 58%;
+    height: 77%;
+    display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+    border-radius:3% ;
+    
+    }
+    .DeliveryBoxBorder {
+
+        width: 88.8%;
+        height: 12.2%;
+        margin-bottom: 2.5%;
+        
+        border: 2px solid rgba(195,137,231);
+    }
+
+    .DeliveryBox{
+        background-color: rgba(83, 34, 157);
+        width: 100%;
+        height: 100%;
+        
+        display: flex;
+        padding-left:10px ;
+        flex-direction: row;
+       
+        border-top: 2px dashed #fff;
+        }
+
+
+
+.DeliveryBox img{
+
+height: 30%;
+aspect-ratio: 1/1;
+margin-top: 1%;
+}
+
+#AddressLabel{
+    margin: 1%;
+    margin-bottom: 0%;
+                padding: 0;
+                font-size: 130%;
+               color: rgba(144,59,254);
+               text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
+ font-family: Lusitana;   
+            }
+
+    
+        .ProductsOrdered{
+            background-color: rgba(83, 34, 157);
+            width: 88.8%;
+            height: 66%;
+            position: relative;
+          display: inline-block;
+            }
+    
+            #ProductsOrderedLabel{
+                margin: 2%;
+                margin-bottom: 0%;
+                            padding: 0;
+                            font-size: 130%;
+                            color: rgba(144,59,254);
+               text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
+ font-family: Lusitana;   
+                }
+    
+    .ProductDetails{
+        
+        
+        height: 40%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+        display: flex;
+        flex-direction: row;
+        
+        }
+        .d1 {
+            flex: 2.5;
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .d2 {
+            flex: 3;
+          
+            flex-direction: row;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+    
+          }
+.d2 p{
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    color: #fff;
+    
+   
+ font-family: Lusitana;   
+}
+
+
+
+          .d3 {
+            flex: 4.5;
+          
+            flex-direction: row;
+            display: flex;
+            justify-content: space-evenly;
+          
+
+            
+          }
+
+          .d3 p{
+
+            margin: 0;
+            padding: 0;
+            font-size: 100%;
+            color: #fff;
+           
+           
+         font-family: Inter;  
+
+
+          }
+    .ProductImage{
+        width: 60%;
+        aspect-ratio: 1/1;
+        background-color: rgba(217,217,217);
+    
+    }
+    
+    .MessageShipping{
+        background-color: rgba(83, 34, 157);
+        margin-left: 2.5%;
+    margin-right: 2.5%;
+        height: 30%;
+        display: flex;
+        flex-direction: row;
+        align-items:end;
+        justify-content: center;
+        border-top: 2px solid #fff;
+    }
+
+
+    .MessageShipping p{
+        margin-right: 3%;
+        padding: 0;
+        font-size: 100%;
+        color: #000;
+       
+       
+     font-family: LuxuriousRoman;  
+
+
+
+    }
+    .Message  {
+    display: flex;
+    flex-direction: row;
+        background-color: rgba(232,132,250);
+        width: 45%;
+        height: 80%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .MessageforSeller{
+        background-color: #fff;
+        width: 45%;
+        height: 60%;
+        }
+    .Shipping  {
+    display: flex;
+    background-color: rgba(232,132,250);
+        width: 45%;
+        height: 80%;
+        border-left: solid 2px #fff;
+        flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    }
+    .ShippingOption{
+    background-color: #fff;
+    width: 45%;
+        height: 60%;
+        display:flex;
+flex-direction: column;
+        align-items: end;
+        
+    }
+#change{
+font-size: 80%;
+text-decoration: underline;
+font-family: LibreCaslonText;
+color: rgba(83,34,157);
+
+
+
+}   
+
+    .OrderTotal  {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        
+        width: 40%;
+        height: 15%;
+        position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+    
+    #OrderTotal{
+        font-size: 100%;
+       
+        font-family: Lusitana;
+        color: #fff;
+        margin-right: 3%;
+
+
+    }
+    
+    #OrderTotalValue{
+        font-size: 200%;
+       
+        font-family: Lusitana;
+        color: rgba(188,45,215,0.81);
+       
+
+
+    }
+    
+    .Summary{
+        background-color: rgba(42,14,83);
+        position: absolute;
+        right: 5%;
+        top: 20%;
+        width: 28%;
+        height: 42.8%;
+    display: flex;
+        align-items: center;
+        flex-direction: column;
+        border-radius: 5%;
+    }
+    
+    
+    .Payment  {
+    
+        width: 100%;
+       height: 20%;
+        display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+    }
+#PaymentMethod{
+    font-size: 180%;
+       
+    font-family: Lusitana;
+    color: #fff;
+    margin-right: 3%;
+
+
+}
+    
+.PaymentOption  {
+   height: 40%;
+   width: 40%;
+   background-color: rgba(229,89,255,0.52);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap:5%;
+    align-items: center;
+    margin-left: 3%;
+}
+
+.PaymentOption p{
+    font-size: 150%;
+       
+    font-family: Acme;
+    color: #fff;
+    
+
+}
+
+
+    .dropdown {
+background-color: rgba(144,59,254);
+height: 70%;
+   aspect-ratio: 1/1;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+    }
+
+
+
+    
+    .Calculation {
+        
+        
+        width: 100%;
+        height: 60%;
+        display: flex;
+        flex-direction: row;
+       
+        border-top: 2px solid #fff;
+        border-bottom: 2px solid #fff;
+    }
+    .CalculationLabel  {
+    flex: 1;
+       
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    align-items:flex-start;
+    flex-wrap: wrap;
+
+
+    }
+    .CalculationLabel p {
+       
+       margin-left: 20%;
+       font-size: 150%;
+       
+       font-family: Acme;
+       color: #fff;
+        }
+    
+    .CalculationValue  {
+    flex: 1;
+       
+        display: flex;
+        flex-direction: column;
+        justify-content:space-evenly;
+    align-items:center;
+   
+    }
+    .CalculationValue p {
+       
+        font-size: 150%;
+        
+        font-family: Acme;
+        color: #fff;
+        margin-top:4% ;
+         }
+
+#TotalPayment{
+
+    font-size: 250%;
+   margin-top: 0;
+}
+
+
+    .PlaceOrder {
+       
+        background-color: rgba(229,89,255);
+        width: 35%;
+        height: 10%;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items:center;
+        bottom: 4%;
+        right: 4%;
+    }
+    .PlaceOrder p{
+        font-size: 150%;
+       
+        font-family: Acme;
+        color: #fff;
+    }
+    
+    
+    
+

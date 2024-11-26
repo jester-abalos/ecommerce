@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <nav class="navbar">
         <div class="logo">
-            <img src="../IMAGE/LOGO1.png" alt="">
+            <img src="../img/LOGO1.png" alt="">
         </div>
         <div class="LOGIN">
             <h1>LOG-IN</h1>
@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="Login-bg">
         <div class="Login_Container">
             <form action="" method="POST" class="login-form">
-                <img class="profile-login" src="../IMAGE/profile.png" alt="">
+                <img class="profile-login" src="../img/profile.png" alt="">
                 <div class="form-group">
                     <input type="text" id="username" name="username" placeholder="Username / Email" required>
                 </div>
@@ -69,12 +69,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <span></span>
                 </div>
                 <div class="connect-with">
-                    <img src="../IMAGE/fb.png" alt="">
-                    <img src="../IMAGE/google.png" alt="">
+                    <img src="../img/fb.png" alt="">
+                    <img src="../img/google.png" alt="">
                 </div>
                 <div class="sign-up">
                     <p>Don't Have an Account?</p>
-                    <a href="Register.html"><p>Sign-Up</p></a>
+                    <a href="Register.php"><p>Sign-Up</p></a>
                 </div>
             </form>
         </div>

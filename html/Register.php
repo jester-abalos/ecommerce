@@ -8,12 +8,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
     $confirm_password = $_POST["confirm_password"];
 
-    // Password match check
-    if ($password !== $confirm_password) {
-        echo "<script>alert('Passwords do not match');</script>";
-        exit;
-    }
-
     // Check if user exists
     $existingUser = $collection->findOne(['username' => $email]);
 
@@ -35,10 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <nav class="navbar">
         <div class="logo">
-            <img src="../IMAGE/LOGO1.png" alt="">
+            <img src="../img/LOGO1.png" alt="">
         </div>
         <div class="LOGIN">
             <h1>REGISTER</h1>
@@ -58,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="Login-bg">
         <div class="Login_Container">
             <form action="" method="POST" class="login-form">
-                <img class="profile-login" src="../IMAGE/profile.png" alt="">
+                <img class="profile-login" src="../img/profile.png" alt="">
                 <div class="form-group">
                     <input type="email" id="username" name="email" placeholder="Username / Email" required>
                 </div>
@@ -74,6 +66,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <i class="fa fa-eye" id="show-pass" onclick="showPassword()"></i>
                     <p id="incorrect-password" style="display: none; color: red;">Passwords do not match</p>
                 </div>
+                <script>
+                    const password = document.getElementById('password');
+                    const retypepassword = document.getElementById('retypepassword');
+                    const incorrectPassword = document.getElementById('incorrect-password');
+                    const submitButton = document.querySelector('button[type="submit"]');
+
+                    retypepassword.addEventListener('input', () => {
+                        if (password.value !== retypepassword.value) {
+                            incorrectPassword.style.display = 'block';
+                            submitButton.disabled = true;
+                        } else {
+                            incorrectPassword.style.display = 'none';
+                            submitButton.disabled = false;
+                        }
+                    });
+                </script>
                 <button type="submit">
                     <p>SIGN-UP</p>
                 </button>
@@ -86,27 +94,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
         </div>
     </div>
-    <script>
-        function showPassword() {
-            var x = document.getElementById("password");
-            var y = document.getElementById("retypepassword");
-            if (x.type === "password" && y.type === "password") {
-                x.type = "text";
-                y.type = "text";
-            } else {
-                x.type = "password";
-                y.type = "password";
-            }
-        }
-
-        document.getElementById("retypepassword").addEventListener("keyup", function () {
-            if (document.getElementById("password").value !== document.getElementById("retypepassword").value) {
-                document.getElementById("incorrect-password").style.display = "block";
-            } else {
-                document.getElementById("incorrect-password").style.display = "none";
-            }
-        });
-    </script>
 </body>
 
 </html>

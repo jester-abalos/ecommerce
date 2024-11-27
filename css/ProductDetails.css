@@ -22,7 +22,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  
+  border: green 1px solid;
 }
 body {
     height: 100vh;
@@ -36,6 +36,9 @@ body {
 
 .navbar {
     display: flex;
+    position: fixed;
+    top:0;
+    width:100%;
     justify-content: left;
     align-items: center;
     background-color: rgba(42, 42, 42);
@@ -200,18 +203,26 @@ font-size: 20px;
 }
 
 
+.container{
+width: 90%;
+max-width: 1750px;
 
+margin: 0 auto;
+margin-top: 100px;
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: space-evenly;
+border:green 2px solid;
+
+
+}
 
 .ProductImage{
-    background: rgba(209, 206, 206, 0.5);
-    border-radius: 80px;
-    
-    height: 80%;
+   
+    width: 45%;
     aspect-ratio: 1/1;
-    position: absolute;
-    left: 8%;
-    top: 50%;
-    transform: translateY(-50%);
+    
 }  
 
 .ProductImage img{
@@ -224,16 +235,13 @@ font-size: 20px;
     
     
     width: 35%;
-height: 80%;
-    position: absolute;
-    right: 8%;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 1.5%;
+    min-width: 500px;
+    
+   
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    
+    justify-content: flex-start;
+    border: green 2px solid;
 }
 
 .ProductName{
@@ -241,37 +249,43 @@ height: 80%;
     color: rgb(255, 255, 255);
     font-family: SongMyung;
     font-size: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 
 }
 
 
 .Rating{
     display: flex;
+    flex-direction: row;
     align-items: center;
-    margin: 10px;
-    gap: 10px;
+    padding-left: 20px;
+   
+    margin-bottom: 20px;
+    
 }
 
-.RatingLabel {
+.Rating p{
     color: rgb(255, 255, 255);
     font-family: SongMyung;
-    font-size: 15px;
+    font-size: 20px;
+    margin-right: 20px;
 }
+
+.Ratingstar{
+    height: 40px;
+    width: 250px;
+    background-color: purple;
+}
+
 
 .ProductPrice{
-    display: flex;
-    justify-content: center;
-    margin: 10px;
-    gap: 10px;
-}
-.PriceText{
     color: rgb(255, 255, 255);
     font-family: SongMyung;
-    font-size: 30px;
-   
-
-
+    font-size: 50px;
+    text-align: center;
 }
+
 
 
 .InfoLabel{
@@ -279,15 +293,17 @@ height: 80%;
     color: rgb(255, 255, 255);
     font-family: SongMyung;
     font-size: 25px;
-    
+    margin-top: 20px;
+    margin-bottom: 20px;
 
 }
 .SelectColor{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    margin: 10px;
-    gap: 10px;
+    margin-bottom: 20px;
+    
+    
 }
 .SelectColor button{
 
@@ -308,7 +324,7 @@ height: 80%;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    margin: 10px;
+    margin-bottom: 20px;
     gap: 10px;
 }
 .SelectRAM button{
@@ -330,17 +346,28 @@ height: 80%;
 
 .Quantity{
     display: flex;
-   
+   flex-direction: row;
+   align-items: center;
+   justify-content: flex-start;
+   padding-left: 20px;
     
-    margin: 10px;
-    gap: 10px;
-
+    margin-bottom: 20px;
 }
+.QuantityBox{
+    width: 200px;
+    height: 40px;
+    border: 1px solid rgb(255, 255, 255);
+    color: #fff;
+    text-align: center;
+margin-left: 20px;
+  }
+  
+
 .CartorBuy{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    margin: 10px;
+    margin-bottom: 20px;
     gap: 10px;
 }
 .CartorBuy button{
@@ -359,15 +386,7 @@ height: 80%;
     color: rgb(255, 255, 255);
 }
 
-.EmptyBox {
-    width: 200px;
-    height: 40px;
-    border: 1px solid rgb(255, 255, 255);
-    color: #fff;
-    text-align: center;
 
-  }
-  
 
 /* Mobile Menu Toggle */
 .navbar-toggle {

@@ -1,7 +1,6 @@
 <?php
 
 require "../connection/connection.php";
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
     $name = htmlspecialchars($_POST["name"], ENT_QUOTES, 'UTF-8');
@@ -87,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </button>
                 <div class="sign-up">
                     <p>Don't Have an Account?</p>
-                    <a href="Login.html">
+                    <a href="Login.php">
                         <p>Log-in</p>
                     </a>
                 </div>

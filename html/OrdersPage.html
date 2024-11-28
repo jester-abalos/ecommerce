@@ -1,135 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orders Page</title>
-    <link rel="stylesheet" href="../css/OrdersPage.css">
-</head>
+<nav class="navbar">
+    <div class="logo">
+        <img src="../img/LOGO1.png" alt="">
+    </div>
 
-<body>
-
-    <nav class="navbar">
-        <div class="logo">
-            <img src="../img/LOGO1.png" alt="">
-        </div>
-        
-            <ul class="navbar-links" id="navbar-links">
-                <li><a href="Dashboard.html">Home</a></li>
-                <li>
-                    <a href="CategoryPage.html">Categories<img src="../img/arrow.png" alt=""></a>
-                <ul class="catdropdown">
-                    <li><a href="#Smartphones">Smartphones</a></li>
-                    <li><a href="#Tablets">Tablets</a></li>
-                    <li><a href="#Gadgets">Gadgets</a></li>
-                    <li><a href="#Smartphones">Smartphones</a></li>
-                    <li><a href="#Tablets">Tablets</a></li>
-                    <li><a href="#Gadgets">Gadgets</a></li>
-                </ul>
-                </li>
-    
-                <li><a href="#Brands">Brands<img src="../img/arrow.png" alt=""></a>
-                    <ul class="brandsdropdown">
-                        <li><a href="#Apple">Apple</a></li>
-                        <li><a href="#OPPO">OPPO</a></li>
-                        <li><a href="#VIVO">VIVO</a></li>
-                        <li><a href="#Samsung">Samsung</a></li>
-                        <li><a href="#Huawei">Huawei</a></li>
-                    </ul>
-                
-                
-                
-                </li>
-                <li><a href="OrdersPage.html">Order</a></li>
+    <ul class="navbar-links" id="navbar-links">
+        <li><a href="Dashboard.html">Home</a></li>
+        <li>
+            <a href="DBCategories.html">Categories<img src="../img/arrow.png" alt=""></a>
+            <ul class="catdropdown">
+                <li><a href="#Smartphones">Smartphones</a></li>
+                <li><a href="#Tablets">Tablets</a></li>
+                <li><a href="#Gadgets">Gadgets</a></li>
             </ul>
-        
+        </li>
 
-        <div class="search-container">
-            <input type="text" placeholder="" id="search-bar">
-            <span id="search-icon"><img src="../img/search.png" alt=""></span>
-        </div>
-        <div class="cart-user">
-            <img src="../img/user.png" alt="">
-            <span></span>
-            <a href="CartPage.html"><img src="../img/cart.png" alt=""></a>
-        </div>
-        <div class="navbar-toggle" id="navbar-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+        <li><a href="#Brands">Brands<img src="../img/arrow.png" alt=""></a>
+            <ul class="brandsdropdown">
+                <li><a href="#Apple">Apple</a></li>
+                <li><a href="#OPPO">OPPO</a></li>
+                <li><a href="#VIVO">VIVO</a></li>
+                <li><a href="#Samsung">Samsung</a></li>
+                <li><a href="#Huawei">Huawei</a></li>
+            </ul>
+        </li>
+        <li><a href="OrdersPage.html">Order</a></li>
+    </ul>
 
-    </nav>
-
-
-
-    <div class="Container">
-        <div class="CartBox">
-
-            <div id="c1">
-                
-                <p id="UNITPRICE">Unit Price</p>
-                <p id="QUANTITY">Quantity</p>
-                <p id="TOTALPRICE">Total Price</p>
-                <p id="STATUS">Status</p>
-            </div>
-
-            <div id="c2">
-                <div class="Items">
-                    <div class="top"></div>
-                    <div class="bottom">
-                       
-                        <div class="ProductImage"></div>
-                        <p class="PRODUCTNAME">PRODUCT NAME</p>
-                        <p class="VARIATION">Variation</p>
-                        <p class="UNITPRICEVALUE">P 200</p>
-                        <p class="QUANTITYVALUE">1</p>
-                        <p class="TOTALPRICEVALUE">P 200</p>
-                        <p class="PENDING">Pending</p>
-                        <btn id="CancelButton">Cancel</btn>
-                    </div>
-                </div>
-            </div>
-
-            <div id="c3">
-                <div class="Items">
-                    <div class="top"></div>
-                    <div class="bottom">
-                        
-                        <div class="ProductImage"></div>
-                        <p class="PRODUCTNAME">PRODUCT NAME</p>
-                        <p class="VARIATION">Variation</p>
-                        <p class="UNITPRICEVALUE">P 200</p>
-                        <p class="QUANTITYVALUE">1</p>
-                        <p class="TOTALPRICEVALUE">P 200</p>
-                        <p class="PENDING">Pending</p>
-                        <btn id="CancelButton">Cancel</btn>
-                    </div>
-                </div>
-            </div>
-
-            <div id="c4">
-                <div class="Items">
-                    <div class="top"></div>
-                    <div class="bottom">
-                      
-                        <div class="ProductImage"></div>
-                        <p class="PRODUCTNAME">PRODUCT NAME</p>
-                        <p class="VARIATION">Variation</p>
-                        <p class="UNITPRICEVALUE">P 200</p>
-                        <p class="QUANTITYVALUE">1</p>
-                        <p class="TOTALPRICEVALUE">P 200</p>
-                        <p class="PENDING">Pending</p>
-                        <btn id="CancelButton">Cancel</btn>
-                    </div>
-                </div>
-            </div>
-
-            </div>
-
-        </div>
-   
-
-</body>
-</html>
+    <div class="search-container">
+        <input type="text" placeholder="" id="search-bar">
+        <span id="search-icon"><img src="../img/search.png" alt=""></span>
+    </div>
+    <div class="cart-user">
+        <img src="../img/user.png" alt="">
+        <span></span>
+        <a href="CartPage.html"><img src="../img/cart.png" alt=""></a>
+    </div>
+    <div class="navbar-toggle" id="navbar-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</nav>

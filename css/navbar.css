@@ -10,6 +10,7 @@
     background-color: rgba(42, 42, 42);
     padding: 10;
     height: 36;
+    z-index: 999;
 }
 
 .logo {

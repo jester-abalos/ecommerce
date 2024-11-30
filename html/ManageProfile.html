@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ManageProfile</title>
+    <link rel="stylesheet" href="../css/ManageProfile.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+</head>
+<body>
+
+  
+    <nav class="navbar">
+        <div class="logo">
+            <img src="../img/LOGO1.png" alt="">
+        </div>
+        
+            <ul class="navbar-links" id="navbar-links">
+                <li><a href="Dashboard.html">Home</a></li>
+                <li>
+                    <a href="CategoryPage.html">Categories<img src="../img/arrow.png" alt=""></a>
+                <ul class="catdropdown">
+                    <li><a href="#Smartphones">Smartphones</a></li>
+                    <li><a href="#Tablets">Tablets</a></li>
+                    <li><a href="#Gadgets">Gadgets</a></li>
+                </ul>
+                </li>
+    
+                <li><a href="#Brands">Brands<img src="../img/arrow.png" alt=""></a>
+                    <ul class="brandsdropdown">
+                        <li><a href="#Apple">Apple</a></li>
+                        <li><a href="#OPPO">OPPO</a></li>
+                        <li><a href="#VIVO">VIVO</a></li>
+                        <li><a href="#Samsung">Samsung</a></li>
+                        <li><a href="#Huawei">Huawei</a></li>
+                    </ul>
+                
+                
+                
+                </li>
+                <li><a href="OrdersPage.html">Order</a></li>
+            </ul>
+        
+
+        <div class="search-container">
+            <input type="text" placeholder="" id="search-bar">
+            <span id="search-icon"><img src="../img/search.png" alt=""></span>
+        </div>
+        <div class="cart-user">
+            <img src="../img/user.png" alt="">
+            <span></span>
+            <a href="CartPage.html"><img src="../img/cart.png" alt=""></a>
+        </div>
+        <div class="navbar-toggle" id="navbar-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+    </nav>
+
+
+    <div class="container">
+        <div class="menu">
+            <div class="useraccount">
+                <div id="profilepic"><img src="../img/profilepic.png" alt=""></div>
+                <div class="profilename">Profile Name</div>
+            </div>
+<button id="myaccount"><img src="../img/iconaccount.png" alt="">My Account</button>
+<span></span>
+<button id="myorders"><img src="../img/iconorder.png" alt="">My Orders</button>
+<span></span>
+<button id="notifications"><img src="../img/iconnotif.png" alt="">Notifications</button>
+<span></span>
+<button id="logout">Log  Out</button>
+        </div>
+
+<div class="settings">
+
+    <div class="settingsheader">
+<h2>My Profile</h2>
+<p>Manage and protect your account</p>
+    </div>
+
+    <div class="settingsform">
+<form  action="">
+
+    <label for="username">Username</label>
+<input type="text" id="username" name="username">
+
+<label for="name">Name</label>
+<input type="text" id="name" name="name">
+
+<label for="address">Change address</label>
+<input type="text" id="address" name="address">
+
+<label for="password">Change password</label>
+<input type="text" id="password" name="password">
+
+<label for="newpassword">new password</label>
+<input type="text" id="newpassword" name="newpassword">
+
+<label for="confirmpassword">Confirm password</label>
+<input type="text" id="confirmpassword" name="confirmpassword">
+
+<label for="email">E-mail</label>
+<input type="email" id="email" name="email">
+
+<label for="phonenumber">Phone number</label>
+<input type="text" id="phonenumber" name="phonenumber">
+
+<label for id="gender" for="gender">Gender</label>
+<input type="radio" id="male" name="gender" value="male">
+<label id="labelmale" for="male">Male</label>
+<input type="radio" id="female" name="gender" value="female">
+<label id="labelfemale" for="female">Female</label>
+
+
+<label for="dateofbirth">Date of Birth:</label>
+<input type="date" id="dateofbirth" name="dateofbirth">
+
+<button id="save" type="submit">SAVE</button>
+
+
+</form>
+    </div>
+
+</div>
+
+
+
+
+
+    </div>
+
+
+</body>
+</html>

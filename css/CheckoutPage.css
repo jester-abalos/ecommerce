@@ -48,7 +48,7 @@ body {
     height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
-    background-image: url('../IMAGE/BG.png');
+    background-color: black;
     background-size: cover;
     background-position: center;
 }
@@ -69,7 +69,7 @@ body {
 }
 
 .Checkout h1{
-    color: rgba(195, 43, 255, 1);
+    color: white;
     font-family: VastShadow;
     font-weight: 100;
     
@@ -79,7 +79,7 @@ body {
     display: flex;
     align-items: center;
     margin-left: auto;
-    background-color: #A929FA;
+    background-color: gray;
     border: #ffffff 2px solid;
     border-radius: 30px;
     padding: 5px;
@@ -134,7 +134,7 @@ body {
 
 
 .CheckoutBox{
-    background-color: rgba(60, 21, 105, 0.68);
+    background-color: #313131;
     position: absolute;
     left: 5%;
     top: 10%;
@@ -153,11 +153,11 @@ body {
         height: 12.2%;
         margin-bottom: 2.5%;
         
-        border: 2px solid rgba(195,137,231);
+        border: 2px solid black;
     }
 
     .DeliveryBox{
-        background-color: rgba(83, 34, 157);
+        background-color: white;
         width: 100%;
         height: 100%;
         
@@ -182,14 +182,14 @@ margin-top: 1%;
     margin-bottom: 0%;
                 padding: 0;
                 font-size: 130%;
-               color: rgba(144,59,254);
+               color: gray;
                text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
  font-family: Lusitana;   
             }
 
     
         .ProductsOrdered{
-            background-color: rgba(83, 34, 157);
+            background-color: black;
             width: 88.8%;
             height: 66%;
             position: relative;
@@ -201,7 +201,7 @@ margin-top: 1%;
                 margin-bottom: 0%;
                             padding: 0;
                             font-size: 130%;
-                            color: rgba(144,59,254);
+                            color: gray;
                text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
  font-family: Lusitana;   
                 }
@@ -270,12 +270,12 @@ margin-top: 1%;
     .ProductImage{
         width: 60%;
         aspect-ratio: 1/1;
-        background-color: rgba(217,217,217);
+        background-color: white;
     
     }
     
     .MessageShipping{
-        background-color: rgba(83, 34, 157);
+        background-color: gray;
         margin-left: 2.5%;
     margin-right: 2.5%;
         height: 30%;
@@ -302,7 +302,7 @@ margin-top: 1%;
     .Message  {
     display: flex;
     flex-direction: row;
-        background-color: rgba(232,132,250);
+        background-color:gray;
         width: 45%;
         height: 80%;
         flex-direction: row;
@@ -317,7 +317,7 @@ margin-top: 1%;
         }
     .Shipping  {
     display: flex;
-    background-color: rgba(232,132,250);
+    background-color: gray;
         width: 45%;
         height: 80%;
         border-left: solid 2px #fff;
@@ -338,7 +338,7 @@ flex-direction: column;
 font-size: 80%;
 text-decoration: underline;
 font-family: LibreCaslonText;
-color: rgba(83,34,157);
+color: white;
 
 
 
@@ -371,14 +371,14 @@ color: rgba(83,34,157);
         font-size: 200%;
        
         font-family: Lusitana;
-        color: rgba(188,45,215,0.81);
+        color: white;
        
 
 
     }
     
     .Summary{
-        background-color: rgba(42,14,83);
+        background-color: #313131;
         position: absolute;
         right: 5%;
         top: 20%;
@@ -413,7 +413,7 @@ align-items: center;
 .PaymentOption  {
    height: 40%;
    width: 40%;
-   background-color: rgba(229,89,255,0.52);
+   background-color: gray;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -423,7 +423,7 @@ align-items: center;
 }
 
 .PaymentOption p{
-    font-size: 150%;
+    font-size: 100%;
        
     font-family: Acme;
     color: #fff;
@@ -433,7 +433,7 @@ align-items: center;
 
 
     .dropdown {
-background-color: rgba(144,59,254);
+background-color: black;
 height: 70%;
    aspect-ratio: 1/1;
    display: flex;
@@ -502,7 +502,7 @@ height: 70%;
 
     .PlaceOrder {
        
-        background-color: rgba(229,89,255);
+        background-color: #313131;
         width: 35%;
         height: 10%;
         position: absolute;

@@ -95,8 +95,9 @@ body {
 }
 
 .bestsellersheader h1{
-    color: white;
+    color: black;
     font-family: SongMyung;
+    font-size: 40px;
    
 }
 

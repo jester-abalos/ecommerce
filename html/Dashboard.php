@@ -18,6 +18,8 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
     <link rel="stylesheet" href="../css/Dashboard.css">
     <link rel="stylesheet" href="../css/scroll.css">
     <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    
 </head>
 <body>
     <nav class="navbar">
@@ -25,8 +27,8 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
             <a href="#home"><img src="../img/LOGO1.png" alt="Logo"></a>
         </div>
         <ul class="navbar-links" id="navbar-links">
-            <li><a href="dashboard.php">Home</a></li>
-            <li><a href="Categories.html">Categories</a></li>
+            <li><a href="Dashboard.php">Home</a></li>
+            <li><a href="Categories.php">Categories</a></li>
             <li><a href="#Brands">Brands</a></li>
             <li><a href="#Order">Order</a></li>
         </ul>
@@ -37,7 +39,7 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
         <div class="cart-user">
             <img src="../img/cart.png" alt="Cart">
             <span></span>
-            <img src="../img/user.png" alt="User">
+            <a href="ManageProfile.html"><img src="../img/user.png" alt="User"></a>
         </div>
         <div class="navbar-toggle" id="navbar-toggle">
             <span></span>
@@ -51,7 +53,7 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
     <div class="discounted_Product">
         <div class="pic-ctn">
             <img src="../img/Scroll_img/xiaomi book pro 16.png" alt="" class="pic">
-            <img src="../img/Scroll_img/xiaomi book pro 16.png" alt="" class="pic">
+            <img src="../img/Scroll_img/sale.jpg" alt="" class="pic">
             <img src="../img/Scroll_img/xiaomi book pro 16.png"alt="" class="pic">
             <img src="../img/Scroll_img/xiaomi book pro 16.png" alt="" class="pic">
             <img src="../img/Scroll_img/xiaomi book pro 16.png" alt="" class="pic">

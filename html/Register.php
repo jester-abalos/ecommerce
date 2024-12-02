@@ -1,6 +1,6 @@
 <?php
 
-require "../connection/connection.php";
+require "C:/xampp/htdocs/ecommerce/connection/connection.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
     $name = htmlspecialchars($_POST["name"], ENT_QUOTES, 'UTF-8');

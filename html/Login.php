@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "C:/xampp/htdocs/GADGETHUB/connection/connection.php";
+require "C:/xampp/htdocs/ecommerce/connection/connection.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = filter_var($_POST["username"], FILTER_SANITIZE_STRING);
@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script>alert('Please fill in all fields.');</script>";
     } else {
         $filter = ['username' => $username];
-        $db = $client->ecommerce;
+        $db = $client->GADGETHUB;
         $collection = $db->users;
         $user = $collection->findOne($filter);
 
@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <form action="" method="POST" class="login-form">
                 <img class="profile-login" src="../img/profile.png" alt="">
                 <div class="form-group">
-                    <input type="text" id="username" name="username" placeholder="Username / Email" required>
+                    <input type="email" id="username" name="username" placeholder="Username / Email" required>
                 </div>
                 <div class="form-group">
                     <input type="password" id="password" name="password" placeholder="Password" required>

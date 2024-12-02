@@ -72,10 +72,13 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
             <div class="bestsellersgrid">
                 <?php foreach ($bestsellers as $product): ?>
                     <div class="bestsellersitem">
-                        <img src="<?php echo htmlspecialchars($product['image'] ?? '../img/placeholder.png'); ?>" alt="Product Image">
-                        <h1><?php echo htmlspecialchars($product['name']); ?></h1>
-                        <p><?php echo '₱' . htmlspecialchars($product['price']); ?></p>
-                    </div>
+    <a href="ProductDetails.php?id=<?php echo $product['_id']; ?>">
+        <img src="<?php echo htmlspecialchars($product['image'] ?? '../img/placeholder.png'); ?>" alt="Product Image">
+        <h1><?php echo htmlspecialchars($product['name']); ?></h1>
+        <p><?php echo '₱' . htmlspecialchars(number_format($product['price'], 2)); ?></p>
+    </a>
+</div>
+
                 <?php endforeach; ?>
             </div>
         </div>

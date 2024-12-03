@@ -5,26 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout Page</title>
     <link rel="stylesheet" href="../css/CheckoutPage.css">
+    <link rel="stylesheet" href="../css/navbar.css">
 </head>
 
 <body>
     
+  
     <nav class="navbar">
         <div class="logo">
             <img src="../img/LOGO1.png" alt="">
         </div>
-        <div class="Checkout">
-            <h1 >Checkout</h1>
-        </div>
+        
+            <ul class="navbar-links" id="navbar-links">
+                <li><a href="Dashboard.html">Home</a></li>
+                <li>
+                    <a href="CategoryPage.html">Categories<img src="../img/arrow.png" alt=""></a>
+                <ul class="catdropdown">
+                    <li><a href="#Smartphones">Smartphones</a></li>
+                    <li><a href="#Tablets">Tablets</a></li>
+                    <li><a href="#Gadgets">Gadgets</a></li>
+                </ul>
+                </li>
+    
+                <li><a href="#Brands">Brands<img src="../img/arrow.png" alt=""></a>
+                    <ul class="brandsdropdown">
+                        <li><a href="#Apple">Apple</a></li>
+                        <li><a href="#OPPO">OPPO</a></li>
+                        <li><a href="#VIVO">VIVO</a></li>
+                        <li><a href="#Samsung">Samsung</a></li>
+                        <li><a href="#Huawei">Huawei</a></li>
+                    </ul>
+                
+                
+                
+                </li>
+                <li><a href="OrdersPage.html">Order</a></li>
+            </ul>
+        
 
         <div class="search-container">
-            <input type="text" placeholder=""  id="search-bar">
+            <input type="text" placeholder="" id="search-bar">
             <span id="search-icon"><img src="../img/search.png" alt=""></span>
         </div>
         <div class="cart-user">
-            <img src="../img/cart.png" alt="">
-            <span></span>
             <img src="../img/user.png" alt="">
+            <span></span>
+            <a href="CartPage.html"><img src="../img/cart.png" alt=""></a>
         </div>
         <div class="navbar-toggle" id="navbar-toggle">
             <span></span>
@@ -34,89 +60,105 @@
 
     </nav>
 
-    <div class="CheckoutBox">
-    
-        <div class ="DeliveryBoxBorder"><div class="DeliveryBox">
-            <img src="../img/locationpin.png" alt="">
-            <p id="AddressLabel">Delivery Address</p>
-        </div>
-        </div>
-    
-        <div class="ProductsOrdered">
-            <p id="ProductsOrderedLabel">Products Ordered</p>
-        <div class="ProductDetails">
-            <div class="d1"><div class="ProductImage"></div></div>
-                <div class="d2"><p>Product Name</p>
-                    <p>Variation</p></div>
-    
-    
-    
-                    <div class="d3"><p>Unit Price</p>
-            <p>Quantity</p>
-            <p>Sub-Total</p></div>
-    
-    
-            
-        
-    
-        </div>
-    
-        <div class="MessageShipping">
-    
 
-            <div class="Message">
-                <p>Message for Seller : </p>
-                <div class="MessageforSeller"></div>
+
+
+
+
+<div class="container">
+
+
+    <div class="checkoutbox">
+        <div class ="addressbox">
+            <label for="deliveryaddress"><img src="../img/locationpin.png" alt="">Delivery Address</label>
+<input type="text" id="deliveryaddress" name="deliveryaddress">
+        </div>
+    
+        <div class="productbox">
+            <p id="productsorderedtitle">Products Ordered</p>
+        <div class="productsordered">
+        
+     <div class="product1">
+        <div class="fieldnames">
+        <p>Unit Price</p>
+        <p>Quantity</p>
+        <p>Sub-Total</p>
+        </div>
+        <div class="productdetails">
+          <img src="../img/checkoutimg.png" alt="">
+        <p id="productname">Product Name</p>
+        <p id="variation">Variation</p>
+        <p id="unitpricevalue">P200</p>
+        <p id="quantityvalue">2</p>
+        <p id="subtotalvalue">P400</p>
+        </div>
+    </div>
+
+
+    <div class="product1">
+        <div class="fieldnames">
+        <p>Unit Price</p>
+        <p>Quantity</p>
+        <p>Sub-Total</p>
+        </div>
+        <div class="productdetails">
+          <img src="../img/checkoutimg.png" alt="">
+        <p id="productname">Product Name</p>
+        <p id="variation">Variation</p>
+        <p id="unitpricevalue">P200</p>
+        <p id="quantityvalue">2</p>
+        <p id="subtotalvalue">P400</p>
+        </div>
+    </div>
+
+
+</div>
+        <div class="messageshipping">
+            <label for="message">Messages for Seller:</label>
+            <input type="text" id="message" name="message">
+<span></span>
+<label for="shipping">Shipping Option:</label>
+            <div id="shipping">
+                <button id="change">Change</button>
             </div>
-            <div class="Shipping">
-                <p>Shipping Option : </p>
-                <div class="ShippingOption">
-<p id="change">Change</p>
-
-                </div>
-            </div>
-        
         </div>
-        <div class="OrderTotal">
-            <p id="OrderTotal">Order Total(# Items):</p>
-            <p id="OrderTotalValue">P100.00</p>
+
+        <div class="ordertotal">
+            <p id="ordertotallabel">Order Total(# Items):</p>
+            <p id="ordertotalvalue">P100.00</p>
         </div>
     </div>
         
-    
-    
     </div>
+ 
     
-    <div class="Summary">
-    
-    <div class="Payment">  
-    <p id="PaymentMethod">Payment Method : </p>
-    <div class="PaymentOption"> <p>Cash on Delivery</p> <p class="dropdown">V</p></div>
-        
 
-    </div>
-    <div class="Calculation"> 
-    <div class="CalculationLabel">
-        <p>Merchandise Subtotal</p>
-        <p>Shipping Subtotal</p>
-        <p>Voucher Discount</p>
-        <p>Total Payment:</p>
-    </div>
-    <div class="CalculationValue">  
-        <p>P85</p>
-        <p>P85</p>
-        <p>P85</p>
-        <p id="TotalPayment">P255</p>
-    
-    
-    
-    </div>
-    </div>
-    <div class="PlaceOrder"> <p>Place Order</p>  </div>
-    
-    
+    <div class="summarybox">
+    <div class="paymentdiv">  
+        <label for="payment">Payment Method:</label>
+  <select name="payment" id="payment">
+    <option value="cod">Cash on Delivery</option>
+    <option value="paypal">Paypal</option>
+  </select>
     </div>
     
+    <div class="calculation"> 
     
+        <p>Merchandise Subtotal: </p>       <p id="merchandisevalue">P85</p>
+        <p>Shipping Subtotal: </p>         <p id="shippingvalue">P85</p>
+        <p>Voucher Discount: </p>         <p id="discountvalue">P85</p>
+        <p>Total Payment: </p>       <p id="totalpaymentvalue">P255</p>
+    
+    
+   
+    </div>
+  
+    <button id="placeorder">Place Order</button>
+    
+    
+    </div>
+    
+
+</div>
 </body>
 </html>

@@ -11,7 +11,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-   
+  
   
 }
 
@@ -31,7 +31,11 @@ body {
     background-color: rgba(42, 42, 42);
     padding: 10;
     height: 36;
-   
+    width: 100%;
+    top: 0;
+    position: fixed;
+    z-index: 999;
+ 
 }
 
 .logo {
@@ -188,167 +192,150 @@ font-size: 20px;
    
     width: 90%;
     max-width: 1500px;
-    margin: 60px auto 0 auto; 
+    margin: 24vh auto 0 auto; 
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  padding-bottom: 70px;
-   
+flex-direction: column;
 }
 
-.label{
-    background-color: #ffffff;
-    width: 100%;
-    height: 80px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content:flex-start;
- font-size: 24px;
- font-weight: bold;
- border-radius: 20px;
-padding-left: 1%;
-padding-right: 1%;
+.hidden{
+    width: 90%;
+    max-width: 1500px;
+    height: 16vh;
+    background-color: #e6e6e6;
+    position: fixed;
+    top: 0;
+left: 50%;
+transform: translateX(-50%);
+
+}
+
+.fieldnames{
+ 
+width: 90%;
+max-width: 1500px;
+padding: 1% 0;
+display: flex;
+flex-direction: row;
+text-align: center;
+align-items: center;
+position: fixed;
+top: 12vh;
+left: 50%;
+transform: translateX(-50%);
+background-color: white;
+border-radius: 10px;
+}
+
+.fieldnames p{
+    width: 12.5%;
+    font-size: 1.3vw;
+   
 }
 
 #productlabel{
-   
-    text-align: center;
-    margin-left: 5%;
-    margin-right: 35%;
-  
-}
-
-#pricelabel{
-    width: 15%;
-    margin-right: 1.5%;
-    text-align: center;
-}
-
-#quantitylabel{
-    margin-right: 1.5%;
-    text-align: center;
+    width: 10%;
    
 }
-#totalpricelabel{
-   
-    width: 15%;
-    margin-right: 2%;
-    text-align: center;
-   
-}
-#actionlabel{
-    
-    text-align: center;
-
-   
+.fieldnames span{
+    width:2.5%;
 }
 
-.product1, .product2, .product3, .product4{
-width: 100%;
-height: 170px;
-background-color: #ffffff;
-margin: 30px 0 10px 0;
-display: flex;
-flex-direction: column;
-justify-content: flex-end;
-}
 
-.details{
-    width: 100%;
-    height: 80%;
-    
-    border-top: 1px solid #636361;
+
+.productbox{
+    background-color: white;
+    width  : 100%;
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    padding-right: 1%;
-}
-
-.details input{
-    height: 20px;
-    width: 20px;
-    margin: 0 2% 0 2%;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: 30px;
 
 }
 
-.details img{
-    width:100px;
-    height: 100px;
+.productdetails{
+
+    width: 100%;
+display: flex;
+flex-direction: row;
+
+text-align: center;
+align-items: center;
+margin-top: 2%;
+padding: 1% 0;
+border-top: 1px #000 solid;
+}
+
+#selectitem{
+    width: 2.5%;
+    aspect-ratio: 1/1;
+}
+
+.productdetails img {
+    width: 10%;
+    aspect-ratio: 1/1;
     object-fit: contain;
-    margin: 0 0 0 0;
+
 }
 
-.details p{
-    font-size: 20px;
-    width: 8%;
-    text-align: center;
-    word-wrap: normal;
-    margin: 0 0 0 4%;
+.productdetails p{
+    width: 12.5%;
+    font-size: 1.3vw;
+    
 }
 
-#productname, #variationvalue{
-    font-size: 20px;
-    width: 13%;
-    text-align: center;
-    word-wrap: normal;
-    margin: 0 0 0 4%;
+.productdetails span{
+    width: 2.5%;
 }
+
 .quantity{
-height: 30px;
-width: 120px;
-background-color: #D9D9D9;
+width: 7.5%;
 display: flex;
 flex-direction: row;
 align-items: center;
-justify-content: center;
-margin: 0 0 0 4%;
+background-color: #d9d9d9;
+font-size: 1.2vw;
 }
 
-#quantityvalue{
-    font-size: 20px;
-    text-align: center;
+.quantity p{
     width: 34%;
-    margin: 0 0 0 0;
 }
 
-.minus {
-    height: 100%;
-    width: 33%;
-    font-size: 20px;
-    font-weight: 800;
-    
-}
+.quantity button{
+width:33%;
 
-.plus { 
-    height: 100%;
-    width: 33%;
-    font-size: 20px;
-    font-weight: 800;
+font-size: 1.2vw;
+border: none;
+
+cursor: pointer;
+
 }
 
 
 
-#deletebutton{
-    height: 30px;
-    font-size: 20px;
+
+
+.delete{
+    width: 7.5%;
+background-color: transparent;
+    color: #000;
+    font-size: 1.3vw;
     text-decoration: underline;
+    cursor: pointer;
     border: none;
-    background-color: transparent;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin: 0 0 0 4.5%;
-   
+
+ 
 }
 
-#deletebutton img{
-    width: 25px;
-    height: 25px;
-    margin-right: 5px;
+.delete img{
+   vertical-align: middle;
+    width: 30%;
+aspect-ratio: 1/1;
+ 
 }
+    
+
+
+
 
 
 

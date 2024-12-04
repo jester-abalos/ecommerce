@@ -52,6 +52,7 @@ body {
     background-color: #e4dede;
     background-size: cover;
     background-position: center;
+   
 }
 
 .container{
@@ -62,8 +63,8 @@ body {
     margin-top: 80px;
     display: flex;
     flex-direction: row;
-   
     justify-content: space-between;
+   
     
     }
 
@@ -128,7 +129,7 @@ padding: 1% 0;
 
 .productsordered{
   
-    max-height: 180px;
+    max-height: 30vh;
     overflow: scroll;
     }
  
@@ -199,13 +200,13 @@ border-bottom: 1px solid #83837E;
     #message{
         border: #000 1px solid;
         width: 24%;
-        height: 60px;
+        height: 10vh;
        
         }
 
 .messageshipping span{
 width: 1px;
-height: 90px;
+height: 20vh;
 background-color: #636361;
 
 
@@ -213,7 +214,7 @@ background-color: #636361;
 
     #shipping  {
         width: 24%;
-        height: 60px;
+        height: 10vh;
    border: #000 1px solid;
        display: flex;
     justify-content: flex-end;

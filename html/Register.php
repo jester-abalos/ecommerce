@@ -1,6 +1,6 @@
 <?php
+require '../connection/connection.php';
 
-require "C:/xampp/htdocs/ecommerce/connection/connection.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
     $name = htmlspecialchars($_POST["name"], ENT_QUOTES, 'UTF-8');
@@ -8,12 +8,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $confirm_password = $_POST["confirm_password"];
 
     // Check if user exists
-    $existingUser = $collection->findOne(['username' => $email]);
+    $existingUser = $db->findOne(['username' => $email]);
 
     if ($existingUser) {
         echo "<script>alert('Account already exists');</script>";
     } else {
-        $result = $collection->insertOne([
+        // Insert the new user
+        $result = $db->insertOne([
             'username' => $email,
             'name' => $name,
             'password' => password_hash($password, PASSWORD_DEFAULT),
@@ -28,8 +29,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,7 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <i class="fa fa-eye" id="show-pass" onclick="showPassword()"></i>
                 </div>
                 <div class="form-group">
-                    <input type="password" id="retypepassword" name="confirm_password" placeholder="Re-Type Password" required>
+                    <input type="password" id="retypepassword" name="confirm_password" placeholder="Re-Type Password"
+                        required>
                     <i class="fa fa-eye" id="show-pass" onclick="showPassword()"></i>
                     <p id="incorrect-password" style="display: none; color: red;">Passwords do not match</p>
                 </div>
@@ -96,4 +100,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 
 </html>
-

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "C:/xampp/htdocs/ecommerce/connection/connection.php";
+require '../connection/connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = filter_var($_POST["username"], FILTER_SANITIZE_STRING);
@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Check if the password matches
             if (password_verify($password, $user->password)) {
                 $_SESSION["username"] = $username;
-                header("Location: Dashboard.html");
+                header("Location: Dashboard.php");
                 exit;
             } else {
                 echo "<script>alert('Incorrect password');</script>";
@@ -33,12 +33,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <link rel="stylesheet" href="../css/login.css">
 </head>
+
 <body>
     <nav class="navbar">
         <div class="logo">
@@ -62,7 +64,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="For-pass">
                     <p>Forgot Password</p>
                 </div>
-                <button type="submit"><p>LOGIN</p></button>
+                <button type="submit">
+                    <p>LOGIN</p>
+                </button>
                 <div class="or-span">
                     <span></span>
                     <p>Or</p>
@@ -74,7 +78,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="sign-up">
                     <p>Don't Have an Account?</p>
-                    <a href="Register.php"><p>Sign-Up</p></a>
+                    <a href="Register.php">
+                        <p>Sign-Up</p>
+                    </a>
                 </div>
             </form>
         </div>
@@ -91,4 +97,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     </script>
 </body>
+
 </html>

@@ -1,5 +1,5 @@
 <?php
-require "C:/xampp/htdocs/ecommerce/vendor/autoload.php"; // MongoDB Library
+require '../connection/connection.php';
 
 // MongoDB connection
 $client = new MongoDB\Client("mongodb://localhost:27017");
@@ -11,6 +11,7 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,8 +20,9 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
     <link rel="stylesheet" href="../css/scroll.css">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/footer.css">
-    
+
 </head>
+
 <body>
     <nav class="navbar">
         <div class="navbar-logo">
@@ -49,22 +51,22 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
     </nav>
 
     <div class="container">
-    
-    <div class="discounted_Product">
-        <div class="pic-ctn">
-            <img src="../img/Scroll_img/xiaomi book pro 16.png" alt="" class="pic">
-            <img src="../img/Scroll_img/sale.jpg" alt="" class="pic">
-            <img src="../img/Scroll_img/xiaomi book pro 16.png"alt="" class="pic">
-            <img src="../img/Scroll_img/xiaomi book pro 16.png" alt="" class="pic">
-            <img src="../img/Scroll_img/xiaomi book pro 16.png" alt="" class="pic">
-        </div>
 
-        
-        <div class="Fix_Img">
-            <img src="../img/Fix_img/gre.png" alt="">
-            <img src="../img/Fix_img/Year End Gadgets.png" alt="">
+        <div class="discounted_Product">
+            <div class="pic-ctn">
+                <img src="../img/Scroll_img/xiaomi book pro 16.png" alt="" class="pic">
+                <img src="../img/Scroll_img/sale.jpg" alt="" class="pic">
+                <img src="../img/Scroll_img/xiaomi book pro 16.png" alt="" class="pic">
+                <img src="../img/Scroll_img/xiaomi book pro 16.png" alt="" class="pic">
+                <img src="../img/Scroll_img/xiaomi book pro 16.png" alt="" class="pic">
+            </div>
+
+
+            <div class="Fix_Img">
+                <img src="../img/Fix_img/gre.png" alt="">
+                <img src="../img/Fix_img/Year End Gadgets.png" alt="">
+            </div>
         </div>
-    </div>
         <div class="bestsellers">
             <div class="bestsellersheader">
                 <h1>BEST SELLERS</h1>
@@ -72,12 +74,13 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
             <div class="bestsellersgrid">
                 <?php foreach ($bestsellers as $product): ?>
                     <div class="bestsellersitem">
-    <a href="ProductDetails.php?id=<?php echo $product['_id']; ?>">
-        <img src="<?php echo htmlspecialchars($product['image'] ?? '../img/placeholder.png'); ?>" alt="Product Image">
-        <h1><?php echo htmlspecialchars($product['name']); ?></h1>
-        <p><?php echo '₱' . htmlspecialchars(number_format($product['price'], 2)); ?></p>
-    </a>
-</div>
+                        <a href="ProductDetails.php?id=<?php echo $product['_id']; ?>">
+                            <img src="<?php echo htmlspecialchars($product['image'] ?? '../img/placeholder.png'); ?>"
+                                alt="Product Image">
+                            <h1><?php echo htmlspecialchars($product['name']); ?></h1>
+                            <p><?php echo '₱' . htmlspecialchars(number_format($product['price'], 2)); ?></p>
+                        </a>
+                    </div>
 
                 <?php endforeach; ?>
             </div>
@@ -87,7 +90,8 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
     <footer class="footer">
         <div class="about">
             <img src="../img/LOGO1.png">
-            <p>"Your Ultimate Destination for Cutting-Edge Technology and Innovation, Where Every Gadget Enthusiast Can Discover, Compare, and Purchase the Latest and Greatest Tech Products, All in One Convenient Place."</p>
+            <p>"Your Ultimate Destination for Cutting-Edge Technology and Innovation, Where Every Gadget Enthusiast Can
+                Discover, Compare, and Purchase the Latest and Greatest Tech Products, All in One Convenient Place."</p>
             <div class="footerbtn">
                 <button>Home</button>
                 <button>About</button>
@@ -105,5 +109,5 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
 
     <script src="../Javascript/Dashboard.js"></script>
 </body>
-</html>
 
+</html>

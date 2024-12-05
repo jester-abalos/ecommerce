@@ -73,33 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../css/navbar.css" />
 </head>
 <body>
-    <nav class="navbar">
-      <div class="navbar-logo">
-        <a href="#home"><img src="../img/LOGO1.png" alt="Logo" /></a>
-      </div>
-      <ul class="navbar-links" id="navbar-links">
-        <li><a href="Dashboard.php">Home</a></li>
-        <li><a href="Categories.php">Categories</a></li>
-        <li><a href="#Brands">Brands</a></li>
-        <li><a href="#Order">Order</a></li>
-      </ul>
-      <div class="search-container">
-        <input type="text" placeholder="Search..." id="search-bar" />
-        <span id="search-icon"
-          ><img src="../img/search.png" alt="Search"
-        /></span>
-      </div>
-      <div class="cart-user">
-        <img src="../img/cart.png" alt="Cart" />
-        <span></span>
-        <img src="../img/user.png" alt="User" />
-      </div>
-      <div class="navbar-toggle" id="navbar-toggle">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </nav>
+<div id="navbar-container"></div>
 
     <div class="container">
       <div class="menu">
@@ -107,15 +81,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <div id="profilepic"><img src="../img/profilepic.png" alt="" /></div>
           <div class="profilename"><?php echo htmlspecialchars($user['username'] ?? '', ENT_QUOTES, 'UTF-8'); ?></div>
         </div>
-        <button id="myaccount">
+        <button id="myaccount" onclick="location.href='manageprofile.php'">
           <img src="../img/iconaccount.png" alt="" />My Account
         </button>
         <span></span>
-        <button id="myorders">
+        <button id="myorders" onclick="location.href='orderspage.php'">
           <img src="../img/iconorder.png" alt="" />My Orders
         </button>
         <span></span>
-        <button id="notifications">
+        <button id="notifications" onclick="location.href='notificationpage.php'">
           <img src="../img/iconnotif.png" alt="" />Notifications
         </button>
         <span></span>
@@ -159,8 +133,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <br>
     <button id="save" type="submit">Save</button>
 </form>
-
+<script>
+        // JavaScript to load the external navbar HTML
+        window.onload = function() {
+            fetch('navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-container').innerHTML = data;
+                });
+        };
+    </script>
 </body>
 </html>
+
 
 

@@ -24,31 +24,7 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="navbar-logo">
-            <a href="#home"><img src="../img/LOGO1.png" alt="Logo"></a>
-        </div>
-        <ul class="navbar-links" id="navbar-links">
-            <li><a href="Dashboard.php">Home</a></li>
-            <li><a href="Categories.php">Categories</a></li>
-            <li><a href="#Brands">Brands</a></li>
-            <li><a href="#Order">Order</a></li>
-        </ul>
-        <div class="search-container">
-            <input type="text" placeholder="Search..." id="search-bar">
-            <span id="search-icon"><img src="../img/search.png" alt="Search"></span>
-        </div>
-        <div class="cart-user">
-            <img src="../img/cart.png" alt="Cart">
-            <span></span>
-            <a href="ManageProfile.php"><img src="../img/user.png" alt="User"></a>
-        </div>
-        <div class="navbar-toggle" id="navbar-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </nav>
+<div id="navbar-container"></div>
 
     <div class="container">
 
@@ -108,6 +84,16 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
     </footer>
 
     <script src="../Javascript/Dashboard.js"></script>
+    <script>
+        // JavaScript to load the external navbar HTML
+        window.onload = function() {
+            fetch('navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-container').innerHTML = data;
+                });
+        };
+    </script>
 </body>
 
 </html>

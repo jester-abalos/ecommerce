@@ -30,34 +30,34 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
         <div class="Category">
             <h1 class="categoryTitle">CATEGORIES</h1>
             <div class="categorygrid">
-                <div class="catitem"><img src="../img/Categories/smart-phone.png"></img>
+                <div class="catitem" onclick="location.href='/html/smartphones.html'"><img src="../img/Categories/smart-phone.png"></img>
                     <p>Smartphones</p>
                 </div>
-                <div class="catitem"><img src="../img/Categories/Laptop.png"></img>
+                <div class="catitem" onclick="location.href='/html/laptops.php'"><img src="../img/Categories/Laptop.png"></img>
                     <p>Laptops</p>
                 </div>
-                <div class="catitem"><img src="../img/Categories/tablet.png"></img>
+                <div class="catitem" onclick="location.href='/html/tablets.php'"><img src="../img/Categories/tablet.png"></img>
                     <p>Tablets</p>
                 </div>
-                <div class="catitem"><img src="../img/Categories/wareable.png"></img>
+                <div class="catitem"onclick="location.href='/html/wearables.php'"><img src="../img/Categories/wareable.png"></img>
                     <p>Wearables</p>
                 </div>
-                <div class="catitem"><img src="../img/Categories/audio.png"></img>
+                <div class="catitem" onclick="location.href='/html/audio.php'"><img src="../img/Categories/audio.png"></img>
                     <p>Audio</p>
                 </div>
-                <div class="catitem"><img src="../img/Categories/gaming.png"></img>
+                <div class="catitem" onclick="location.href='/html/gaming.php'"><img src="../img/Categories/gaming.png"></img>
                     <p>Gaming</p>
                 </div>
-                <div class="catitem"><img src="../img/Categories/camera.png"></img>
+                <div class="catitem" onclick="location.href='/html/camera.php'"><img src="../img/Categories/camera.png"></img>
                     <p>Cameras</p>
                 </div>
-                <div class="catitem"><img src="../img/Categories/home gadgets.png"></img>
+                <div class="catitem" onclick="location.href='/html/homegadgets.php'"><img src="../img/Categories/home gadgets.png"></img>
                     <p>Home Gadgets</p>
                 </div>
-                <div class="catitem"><img src="../img/Categories/computer.png"></img>
+                <div class="catitem" onclick="location.href='/html/computers.php'"><img src="../img/Categories/computer.png"></img>
                     <p>Computers and Components</p>
                 </div>
-                <div class="catitem"><img src="../img/Categories/accesories.png"></img>
+                <div class="catitem" onclick="location.href='/html/accesories.php'"><img src="../img/Categories/accesories.png"></img>
                     <p>Accessories</p>
                 </div>
 

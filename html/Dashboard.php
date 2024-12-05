@@ -5,7 +5,7 @@ require '../connection/connection.php';
 $client = new MongoDB\Client("mongodb://localhost:27017");
 $collection = $client->GADGETHUB->products;
 
-// Fetch products data
+// Fetch products data (bestsellers)
 $bestsellers = $collection->find(); // Adjust query for specific conditions if needed
 ?>
 
@@ -20,7 +20,6 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
     <link rel="stylesheet" href="../css/scroll.css">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/footer.css">
-
 </head>
 
 <body>
@@ -37,12 +36,12 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
                 <img src="../img/Scroll_img/xiaomi book pro 16.png" alt="" class="pic">
             </div>
 
-
             <div class="Fix_Img">
                 <img src="../img/Fix_img/gre.png" alt="">
                 <img src="../img/Fix_img/Year End Gadgets.png" alt="">
             </div>
         </div>
+
         <div class="bestsellers">
             <div class="bestsellersheader">
                 <h1>BEST SELLERS</h1>
@@ -51,13 +50,19 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
                 <?php foreach ($bestsellers as $product): ?>
                     <div class="bestsellersitem">
                         <a href="ProductDetails.php?id=<?php echo $product['_id']; ?>">
-                            <img src="<?php echo htmlspecialchars($product['image'] ?? '../img/placeholder.png'); ?>"
-                                alt="Product Image">
+                            <!-- Display the product image -->
+                            <img src="<?php echo htmlspecialchars($product['images'][0]['url'] ?? '../img/placeholder.png'); ?>" alt="Product Image">
                             <h1><?php echo htmlspecialchars($product['name']); ?></h1>
-                            <p><?php echo '₱' . htmlspecialchars(number_format($product['price'], 2)); ?></p>
+                            <p><?php echo '₱' . htmlspecialchars(number_format($product['price']['amount'], 2)); ?></p>
+
+                            <!-- Display the discount if available -->
+                            <?php if (!empty($product['discount'])): ?>
+                                <p class="discount">
+                                    <?php echo $product['discount']['value']; ?>% OFF
+                                </p>
+                            <?php endif; ?>
                         </a>
                     </div>
-
                 <?php endforeach; ?>
             </div>
         </div>
@@ -87,7 +92,7 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
     <script>
         // JavaScript to load the external navbar HTML
         window.onload = function() {
-            fetch('navbar.html')
+            fetch('navbar.php')
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('navbar-container').innerHTML = data;

@@ -19,7 +19,7 @@ $user = $collection->findOne(['_id' => new MongoDB\BSON\ObjectId($userId)]);
 
 // Check if the user is online
 if ($user['status'] !== 'online') {
-    echo "<script>alert('You must be logged in as online to manage your profile.'); window.location.href='Dashboard.php';</script>";
+    echo "<script>alert('You must be logged in as online to manage your profile.'); window.location.href='Login.php';</script>";
     exit;
 }
 
@@ -79,7 +79,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="menu">
         <div class="useraccount">
           <div id="profilepic"><img src="../img/profilepic.png" alt="" /></div>
-         <input type="file" text="" >
           <div class="profilename"><?php echo htmlspecialchars($user['username'] ?? '', ENT_QUOTES, 'UTF-8'); ?></div>
         </div>
         <button id="myaccount" onclick="location.href='manageprofile.php'">
@@ -132,12 +131,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="confirmpassword">Confirm Password</label>
             <input type="password" id="confirmpassword" name="confirmpassword" />
     <br>
-    <button id="save" type="submit">Save</button>
+    <button id="save" type="submit" onclick="alert('Update information saved!');">Save</button>
 </form>
 <script>
         // JavaScript to load the external navbar HTML
         window.onload = function() {
-            fetch('navbar.html')
+            fetch('navbar.php')
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('navbar-container').innerHTML = data;

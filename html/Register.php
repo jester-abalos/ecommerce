@@ -7,9 +7,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = isset($_POST["name"]) ? htmlspecialchars($_POST["name"], ENT_QUOTES, 'UTF-8') : '';
     $password = $_POST["password"];
     $confirm_password = $_POST["confirm_password"];
+    $agree = isset($_POST["agree"]) ? true : false;
 
-    if (empty($email) || empty($name) || empty($password) || empty($confirm_password)) {
-        echo "<script>alert('Please fill in all fields.');</script>";
+    if (empty($email) || empty($name) || empty($password) || empty($confirm_password) || !$agree) {
+        echo "<script>alert('Please fill in all fields and agree to the terms and conditions.');</script>";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         echo "<script>alert('Invalid email format.');</script>";
     } elseif ($password !== $confirm_password) {
@@ -36,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'purchaseHistory' => [],
                 'cart' => [],
                 'gender' => '',
-                
+                'termsAgreed' => true,
             ]);
 
             if ($result->getInsertedCount() === 1) {
@@ -50,7 +51,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -104,6 +104,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         }
                     });
                 </script>
+                <div class="terms">
+                    <input type="checkbox" id="agree" name="agree" value="1" required>
+                    <label for="agree">I agree to the <a href="../termsAndConditions.php" target="_blank">Terms and Conditions</a></label>
+                </div>
                 <button type="submit">
                     <p>SIGN-UP</p>
                 </button>
@@ -119,3 +123,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 
 </html>
+

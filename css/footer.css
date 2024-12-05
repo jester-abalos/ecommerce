@@ -10,6 +10,7 @@
     
     .about{
     flex:8;
+    height:800px;
     background-color: #46434D;
     display: flex;
     flex-direction: column;

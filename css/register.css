@@ -133,7 +133,7 @@ button:hover{
     aspect-ratio: 12/3;
     border: 1px solid rgba(84, 84, 84, 0.8);
       border-radius: 15px;
-    background-color: rgba(84, 84, 84, 0.8);
+      background-color: rgba(240, 238, 238, 0.781);
     color: rgb(255, 255, 255);
     cursor: pointer;
 }

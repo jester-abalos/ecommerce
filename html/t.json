@@ -18,3 +18,20 @@
   "status": "active"
 }
 
+{
+  "_id": {
+    "$oid": "67512e4c9912e4229f083f74"
+  },
+  "email": "test2@gmail.com",
+  "name": "qwe qwe",
+  "passwordHash": "$2y$10$iKrEadstr1Pe514CoD6yeuSLa/itSr9B8x6pMcPLwDO8sDkz8a00q",
+  "address": "498 James Street",
+  "phone": "",
+  "purchaseHistory": [],
+  "cart": [],
+  "gender": "male",
+  "status": "online",
+  "date_of_birth": "2025-01-01",
+  "phone_number": "09638959720",
+  "username": ""
+}

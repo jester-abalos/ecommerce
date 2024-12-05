@@ -81,11 +81,15 @@ width: 35%;
     background-color: transparent;
 }
 
-#logout{
-   display: flex;
-   margin-left: 0;
-  justify-content: center;
-    
+#logout {
+    display: flex;
+    margin-left: 0;
+    justify-content: center;
+    color: red;
+}
+
+#logout:hover {
+    color: darkred;
 }
 
 .menu button img{
@@ -134,11 +138,7 @@ width: 35%;
 }
 
 form{
-
- 
-    
     width:80%;
-
 }
 
 form label{
@@ -188,13 +188,17 @@ vertical-align: middle;
 width: 30%;
 
 }
+#save {
+    display: block;
+    background-color: #e2e2e2;
+    height: 50px;
+    width: 120px;
+    margin: 0 0 30px 19%;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
 
-#save{
-display: block;
-background-color: #e2e2e2;
-height: 50px;
-width: 120px;
-margin: 0 0 30px 19%;
-cursor: pointer;
-border: none;
+#save:hover {
+    background-color: #d0d0d0;
 }

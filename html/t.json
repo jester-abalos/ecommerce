@@ -1,0 +1,20 @@
+{
+  "_id": {
+    "$oid": "6751156d9912e4229f083f6a"
+  },
+  "email": "test@gmail.com",
+  "name": {
+    "first": "asd",
+    "last": "dof"
+  },
+  "username": "user123",
+  "passwordHash": "$2y$10$wpy/C086.5fZYTu/Tzwv1.T6dPotnh1/0f0cGYZCbXbjHDeta8hVa",
+  "address": "123 Main St, SomeCity, SomeCountry",
+  "phone": "1234567890",
+  "gender": "male",
+  "date_of_birth": "1990-01-01",
+  "purchaseHistory": [],
+  "cart": [],
+  "status": "active"
+}
+

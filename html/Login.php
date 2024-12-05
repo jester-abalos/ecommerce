@@ -1,30 +1,46 @@
 <?php
 session_start();
-require '../connection/connection.php';
+require '../connection/connection.php'; // Ensure MongoDB connection is set up here
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = filter_var($_POST["username"], FILTER_SANITIZE_STRING);
+    $email = filter_var($_POST["username"], FILTER_SANITIZE_EMAIL); // Accept email as username input
     $password = $_POST["password"];
 
-    if (empty($username) || empty($password)) {
+    if (empty($email) || empty($password)) {
         echo "<script>alert('Please fill in all fields.');</script>";
     } else {
-        $filter = ['username' => $username];
+        // MongoDB collection
         $db = $client->GADGETHUB;
         $collection = $db->users;
+
+        // Check for the user by email
+        $filter = ['email' => $email];
         $user = $collection->findOne($filter);
 
         if ($user) {
-            // Check if the password matches
-            if (password_verify($password, $user->password)) {
-                $_SESSION["username"] = $username;
+            // Verify the password
+            if (password_verify($password, $user['passwordHash'])) { // Use `passwordHash` from the DB
+                // Store the user's unique ID and other relevant details in the session
+                $_SESSION['user_id'] = (string) $user['_id']; // Store user ID as string
+                $_SESSION['email'] = $user['email']; // Store email
+
+                // Set the user status to 'online' in the database when they log in
+                $userId = $_SESSION['user_id'];
+                
+                // Update the user's status to 'online'
+                $collection->updateOne(
+                    ['_id' => new MongoDB\BSON\ObjectId($userId)],
+                    ['$set' => ['status' => 'online']]
+                );
+
+                // Redirect to the Dashboard
                 header("Location: Dashboard.php");
                 exit;
             } else {
-                echo "<script>alert('Incorrect password');</script>";
+                echo "<script>alert('Incorrect password.');</script>";
             }
         } else {
-            echo "<script>alert('Username does not exist');</script>";
+            echo "<script>alert('Email does not exist.');</script>";
         }
     }
 }
@@ -55,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <form action="" method="POST" class="login-form">
                 <img class="profile-login" src="../img/profile.png" alt="">
                 <div class="form-group">
-                    <input type="email" id="username" name="username" placeholder="Username / Email" required>
+                    <input type="text" id="username" name="username" placeholder="Username / Email" required>
                 </div>
                 <div class="form-group">
                     <input type="password" id="password" name="password" placeholder="Password" required>

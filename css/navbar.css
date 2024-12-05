@@ -92,12 +92,14 @@
 
 .search-container input {
     background-color: transparent;
+    
 }
 
 .search-container input::placeholder {
     color: #000000;
     font-family: VastShadow;
     font-size: medium;
+
 }
 
 #search-bar {

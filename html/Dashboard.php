@@ -41,7 +41,7 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
         <div class="cart-user">
             <img src="../img/cart.png" alt="Cart">
             <span></span>
-            <a href="ManageProfile.html"><img src="../img/user.png" alt="User"></a>
+            <a href="ManageProfile.php"><img src="../img/user.png" alt="User"></a>
         </div>
         <div class="navbar-toggle" id="navbar-toggle">
             <span></span>

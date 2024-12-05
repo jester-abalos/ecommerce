@@ -1,0 +1,59 @@
+
+.Status{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin: 10px 0;
+}
+.Status .StatusBTN{
+    display: flex;
+    background-color: #B1B1AD;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+.Status .StatusBTN p{
+    color: #000000;
+    font-size: 15px;
+}
+.Recent-Container{
+    
+    width: 97%;
+    height: auto;
+    border-radius: 10px;
+    border: #000000 solid 1px;
+    margin: 0 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    
+}
+.Recent-Container .recent-Header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.Recent-Container .Order-Labels{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.Recent-Container .Order-Labels p{
+    font-family: Open-sans-semibold;
+    font-size: 15px;
+    color: #000000;
+    margin: 0;
+}
+span{
+    background-color: #23232141;
+    height: 1px;
+    width: 100%;
+    margin: 10px 0;
+}
+.Recent-Container .Order-Info{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+}

@@ -39,7 +39,7 @@ if ($productId) {
             <h1 class="ProductName"><?php echo htmlspecialchars($product['name']); ?></h1>
             <p class="ProductPrice">₱<?php echo htmlspecialchars(number_format($product['price'], 2)); ?></p>
             <div class="CartorBuy">
-                <button id="addtocart">ADD TO CART</button>
+                <button id="addtocart"  onclick="location.href='CartPage.html'" >ADD TO CART</button>
                 <button id="buy">BUY</button>
             </div>
         </div>

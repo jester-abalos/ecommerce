@@ -79,6 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="menu">
         <div class="useraccount">
           <div id="profilepic"><img src="../img/profilepic.png" alt="" /></div>
+         <input type="file" text="" >
           <div class="profilename"><?php echo htmlspecialchars($user['username'] ?? '', ENT_QUOTES, 'UTF-8'); ?></div>
         </div>
         <button id="myaccount" onclick="location.href='manageprofile.php'">

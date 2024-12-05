@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register Page</title>
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/register.css">
 </head>
 
 <body>
@@ -66,14 +66,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="logo">
             <img src="../img/LOGO1.png" alt="">
         </div>
-        <div class="LOGIN">
+        <div class="REGISTER">
             <h1>REGISTER</h1>
         </div>
     </nav>
-    <div class="Login-bg">
-        <div class="Login_Container">
-            <form action="" method="POST" class="login-form">
-                <img class="profile-login" src="../img/profile.png" alt="">
+    <div class="Register-bg">
+        <div class="Register_Container">
+            <form action="" method="POST" class="Register-form">
+                <img class="profile-Register" src="../img/profilepic.png" alt="">
                 <div class="form-group">
                     <input type="email" id="email" name="email" placeholder="Email" required>
                 </div>
@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="form-group">
                     <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-Type Password" required>
-                    <p id="password-error" style="display: none; color: red;">Passwords do not match</p>
+                    <p id="password-error" style="display: none; color: white; margin-top: 20px;">PASSWORDS DO NOT MATCH!!</p>
                 </div>
                 <script>
                     const password = document.getElementById('password');

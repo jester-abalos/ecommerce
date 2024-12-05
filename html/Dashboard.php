@@ -63,7 +63,7 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
         </div>
     </div>
 
-    <footer class="footer">
+    <footer id="footer" class="footer">
         <div class="about">
             <img src="../img/LOGO1.png">
             <p>"Your Ultimate Destination for Cutting-Edge Technology and Innovation, Where Every Gadget Enthusiast Can

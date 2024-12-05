@@ -69,17 +69,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="Login-bg">
         <div class="Login_Container">
             <form action="" method="POST" class="login-form">
-                <img class="profile-login" src="../img/profile.png" alt="">
+                <img class="profile-login" src="../img/profilepic.png" alt="">
                 <div class="form-group">
-                    <input type="text" id="username" name="username" placeholder="Username / Email" required>
+                    <input type="email" id="username" name="username" placeholder="Email Address" required>
                 </div>
                 <div class="form-group">
                     <input type="password" id="password" name="password" placeholder="Password" required>
                     <i class="fa fa-eye" id="show-pass" onclick="showPassword()"></i>
                 </div>
-                <div class="For-pass">
-                    <p>Forgot Password</p>
-                </div>
+               
                 <button type="submit">
                     <p>LOGIN</p>
                 </button>
@@ -93,9 +91,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <img src="../img/google.png" alt="">
                 </div>
                 <div class="sign-up">
-                    <p>Don't Have an Account?</p>
+                    <p>New Customer?</p>
                     <a href="Register.php">
-                        <p>Sign-Up</p>
+                        <p class="loginsignup">Sign-Up</p>
                     </a>
                 </div>
             </form>

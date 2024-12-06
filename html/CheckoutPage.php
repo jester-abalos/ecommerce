@@ -11,8 +11,6 @@ if (!isset($_SESSION['user_id'])) {
 // Fetch the user ID from the session
 $userId = $_SESSION['user_id'];
 
-// MongoDB connection
-$client = new MongoDB\Client("mongodb://localhost:27017");
 
 // Fetch user details (including address)
 $userCollection = $client->GADGETHUB->users;
@@ -84,6 +82,7 @@ if (isset($_POST['place_order'])) {
     <link rel="stylesheet" href="../css/navbar.css">
 </head>
 <body>
+  
     <div id="navbar-container"></div>
     <div class="container">
         <form method="POST">

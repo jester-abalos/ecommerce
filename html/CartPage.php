@@ -8,31 +8,15 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// MongoDB connection
-$client = new MongoDB\Client("mongodb://localhost:27017");
-$cartCollection = $client->GADGETHUB->carts;
-$productCollection = $client->GADGETHUB->products; // Products collection
+if (isset($_POST['cart_id'])) {
+    $cartId = $_POST['cart_id'];
 
-$userId = $_SESSION['user_id'];
-$cartItems = iterator_to_array($cartCollection->find(['user_id' => $userId]));
+    // Remove the cart item from the database
+    $cartCollection->deleteOne(['_id' => new MongoDB\BSON\ObjectId($cartId)]);
 
-if (count($cartItems) == 0) {
-    echo "<p>Your cart is empty. Add some products!</p>";
+    // Redirect back to the cart page after removal
+    header('Location: CartPage.php');
     exit();
-}
-
-// Fetch product details and calculate the total amount
-$totalAmount = 0;
-foreach ($cartItems as &$item) { // Use reference to modify cart item
-    $product = $productCollection->findOne(['_id' => new MongoDB\BSON\ObjectId($item['product_id'])]);
-    if ($product) {
-        $item['image_url'] = $product['images'][0]['url'] ?? '../img/placeholder.png'; // Default to placeholder if no image
-        $item['name'] = $product['name'] ?? 'Unknown Product';
-    } else {
-        $item['image_url'] = '../img/placeholder.png';
-        $item['name'] = 'Unknown Product';
-    }
-    $totalAmount += $item['price'] * $item['quantity'];
 }
 ?>
 <!DOCTYPE html>
@@ -42,10 +26,11 @@ foreach ($cartItems as &$item) { // Use reference to modify cart item
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart Page</title>
     <link rel="stylesheet" href="../css/CartPage.css">
+    <link rel="stylesheet" href="../css/navbar.css">
 </head>
 
 <body>
-    <div id="navbar-container"></div>
+    <?php include '../html/navbar.php' ?>
     <div class="container">
         <div class="fieldnames">
             <span></span>
@@ -56,50 +41,108 @@ foreach ($cartItems as &$item) { // Use reference to modify cart item
             <p id="actionlabel">Action</p>
         </div>
 
-        <!-- Product list container -->
-        <?php foreach ($cartItems as $item): ?>
-            <div class="productbox">
-                <div class="productdetails">
-                    <span></span>
-                    <input type="checkbox" id="selectitem" name="selectitem" value="selectitem"><span></span>
-                    <img src="<?php echo htmlspecialchars($item['image_url']); ?>" alt="Product Image">
-                    <p id="productname"><?php echo htmlspecialchars($item['name']); ?></p>
-                    <p id="pricevalue">₱<?php echo number_format($item['price'], 2); ?></p>
-                    <div class="quantity">
-                        <button onclick="updateQuantity('<?php echo $item['_id']; ?>', 'increase')">+</button>
-                        <p><?php echo $item['quantity']; ?></p>
-                        <button onclick="updateQuantity('<?php echo $item['_id']; ?>', 'decrease')">-</button>
-                    </div>
-                    <span></span>
-                    <form method="POST" action="CartPage.php">
-                        <input type="hidden" name="cart_id" value="<?php echo $item['_id']; ?>">
-                        <button type="submit" class="delete"><img src="../img/trash.png" alt="">Delete</button>
-                    </form>
-                </div>
-            </div>
-        <?php endforeach; ?>
+        <?php
+        if (!isset($_SESSION['user_id'])) {
+            echo "<p>Please log in to view your cart.</p>";
+        } else {
+            $client = new MongoDB\Client("mongodb://localhost:27017");
+            $cartCollection = $client->GADGETHUB->carts;
+            $productCollection = $client->GADGETHUB->products;  // Define the product collection
+            $userId = $_SESSION['user_id'];
+            $cartItems = iterator_to_array($cartCollection->find(['user_id' => $userId]));
 
-        <p id="totalitem">Total: ₱<?php echo number_format($totalAmount, 2); ?></p>
-    </div>
+            // Initialize $totalAmount
+            $totalAmount = 0;
 
-    <div class="bottomoptions">
-        <input type="checkbox" id="selectall" name="selectall" value="selectall">
-        <p id="selectalllabel">Select All</p>
-        <button id="deleteall"> <img src="../img/trash.png" alt="">Delete</button>
+            if (count($cartItems) == 0) {
+                echo "<p>Your cart is empty. Add some products!</p>";
+            } else {
+                foreach ($cartItems as $item) {
+                    // Fetch the product details based on the product_id in the cart
+                    $product = $productCollection->findOne(['_id' => new MongoDB\BSON\ObjectId($item['product_id'])]);
 
-        <button id="checkout" onclick="location.href='checkoutpage.php'">Check Out</button>
+                    // Check if the product has an image URL or use a default image
+                    $productImage = (isset($product['images']) && !empty($product['images'])) 
+                    ? $product['images'][0]['url'] 
+                    : '../img/default-product.png';
+
+                    echo "
+                    <div class='productbox'>
+                        <div class='productdetails'>
+                            <span></span>
+                            <input 
+                                type='checkbox' 
+                                id='selectitem' 
+                                name='selectitem' 
+                                data-price='" . $item['price'] . "' 
+                                data-quantity='" . $item['quantity'] . "' 
+                                onclick='updateTotal()'
+                            >
+                            <span></span>
+                            <!-- Display Product Image -->
+                            <img src='" . htmlspecialchars($productImage, ENT_QUOTES) . "' alt='" . htmlspecialchars($product['name'], ENT_QUOTES) . "' class='product-image'>
+                            <p id='productname'>" . htmlspecialchars($item['name']) . "</p>
+                            <p id='pricevalue'>₱" . number_format($item['price'], 2) . "</p>
+                            <form method='POST' action='CartPage.php'>
+                                <input type='hidden' name='cart_id' value='" . $item['_id'] . "'>
+                                <button type='submit' class='delete'><img src='../img/trash.png' alt=''></button>
+                            </form>
+                        </div>
+                    </div>";
+                }
+            }
+        }
+        ?>
+        <div class="bottomoptions">
+            <input type="checkbox" id="selectall" name="selectall" value="selectall" onclick="toggleSelectAll(this)">
+            <p id="selectalllabel">Select All</p>
+            <p id="totalitem">Total: ₱<span id="totalvalue">0.00</span></p>
+            <button id="checkout" onclick="location.href='checkoutpage.php'">Check Out</button>
+        </div>
     </div>
 
     <script>
-        window.onload = function() {
-            fetch('navbar.php')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('navbar-container').innerHTML = data;
-                });
-        };
+        // Toggle all checkboxes
+        function toggleSelectAll(selectAllCheckbox) {
+            const checkboxes = document.querySelectorAll("input[name='selectitem']");
+            let total = 0;
 
-    </script>
-</body>
-</html>
-        
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+
+                if (checkbox.checked) {
+                    total += parseFloat(checkbox.dataset.price || 0) * parseInt(checkbox.dataset.quantity || 1);
+                }
+            });
+
+            const formattedTotal = total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            document.getElementById("totalvalue").innerText = formattedTotal;
+        }
+
+        // Update total dynamically based on selected items
+        function updateTotal() {
+            const checkboxes = document.querySelectorAll("input[name='selectitem']");
+            let total = 0;
+
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    const price = parseFloat(checkbox.dataset.price || 0);
+                    const quantity = parseInt(checkbox.dataset.quantity || 1);
+                    total += price * quantity;
+                }
+            });
+
+            const formattedTotal = total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            document.getElementById("totalvalue").innerText = formattedTotal;
+        }
+
+        function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const totalUniqueItems = cart.length;
+  document.querySelector('.cart-count').textContent = totalUniqueItems;
+}
+
+
+</script>
+    </body>
+    </html>

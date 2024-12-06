@@ -4,5 +4,7 @@ require '../vendor/autoload.php'; // Composer autoload
 
 $client = new MongoDB\Client("mongodb://localhost:27017/");
 
-$Collection = $client->GADGETHUB->users; 
+$Collection = $client->GADGETHUB->users;
+$cartCollection = $client->GADGETHUB->carts;
+$productCollection = $client->GADGETHUB->products;
 ?>

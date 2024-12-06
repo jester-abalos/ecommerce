@@ -1,9 +1,7 @@
 <?php
-require "../vendor/autoload.php"; // MongoDB Library
+require "../connection/connection.php"; // MongoDB Library
 
 // MongoDB connection
-$client = new MongoDB\Client("mongodb://localhost:27017");
-$collection = $client->GADGETHUB->products;
 
 // Fetch products data
 $bestsellers = $collection->find(); // Adjust query for specific conditions if needed
@@ -20,6 +18,8 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
     <link rel="stylesheet" href="../css/DBCategories.css">
     <link rel="stylesheet" href="../css/footer.css">
     <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+
 </head>
 
 <body>
@@ -108,7 +108,7 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
     <script>
         // JavaScript to load the external navbar HTML
         window.onload = function() {
-            fetch('navbar.html')
+            fetch('navbar.php')
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('navbar-container').innerHTML = data;

@@ -23,7 +23,9 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
 </head>
 
 <body>
-<div id="navbar-container"></div>
+<?php include '../html/navbar.php' ?>
+
+
 
     <div class="container">
 
@@ -89,16 +91,6 @@ $bestsellers = $collection->find(); // Adjust query for specific conditions if n
     </footer>
 
     <script src="../Javascript/Dashboard.js"></script>
-    <script>
-        // JavaScript to load the external navbar HTML
-        window.onload = function() {
-            fetch('navbar.php')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('navbar-container').innerHTML = data;
-                });
-        };
-    </script>
 </body>
 
 </html>

@@ -6,7 +6,7 @@
         <li><a href="Dashboard.php">Home</a></li>
         <li><a href="Categories.php">Categories</a></li>
         <li><a href="#Brands">Brands</a></li>
-        <li><a href="#Order">Order</a></li>
+        
     </ul>
     <div class="search-container">
         <input type="text" placeholder="Search..." id="search-bar">

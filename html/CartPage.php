@@ -8,19 +8,31 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-if (isset($_POST['cart_id'])) {
-    $cartId = $_POST['cart_id'];
+// MongoDB connection
+$client = new MongoDB\Client("mongodb://localhost:27017");
+$cartCollection = $client->GADGETHUB->carts;
+$productCollection = $client->GADGETHUB->products; // Products collection
 
-    // MongoDB connection
-    $client = new MongoDB\Client("mongodb://localhost:27017");
-    $cartCollection = $client->GADGETHUB->carts;
+$userId = $_SESSION['user_id'];
+$cartItems = iterator_to_array($cartCollection->find(['user_id' => $userId]));
 
-    // Remove the cart item from the database
-    $cartCollection->deleteOne(['_id' => new MongoDB\BSON\ObjectId($cartId)]);
-
-    // Redirect back to the cart page after removal
-    header('Location: CartPage.php');
+if (count($cartItems) == 0) {
+    echo "<p>Your cart is empty. Add some products!</p>";
     exit();
+}
+
+// Fetch product details and calculate the total amount
+$totalAmount = 0;
+foreach ($cartItems as &$item) { // Use reference to modify cart item
+    $product = $productCollection->findOne(['_id' => new MongoDB\BSON\ObjectId($item['product_id'])]);
+    if ($product) {
+        $item['image_url'] = $product['images'][0]['url'] ?? '../img/placeholder.png'; // Default to placeholder if no image
+        $item['name'] = $product['name'] ?? 'Unknown Product';
+    } else {
+        $item['image_url'] = '../img/placeholder.png';
+        $item['name'] = 'Unknown Product';
+    }
+    $totalAmount += $item['price'] * $item['quantity'];
 }
 ?>
 <!DOCTYPE html>
@@ -45,55 +57,29 @@ if (isset($_POST['cart_id'])) {
         </div>
 
         <!-- Product list container -->
-        <?php
-        // Assuming session is started and user is logged in
-        if (!isset($_SESSION['user_id'])) {
-            echo "<p>Please log in to view your cart.</p>";
-        } else {
-            // MongoDB connection and fetching user's cart items
-            $client = new MongoDB\Client("mongodb://localhost:27017");
-            $cartCollection = $client->GADGETHUB->carts;
+        <?php foreach ($cartItems as $item): ?>
+            <div class="productbox">
+                <div class="productdetails">
+                    <span></span>
+                    <input type="checkbox" id="selectitem" name="selectitem" value="selectitem"><span></span>
+                    <img src="<?php echo htmlspecialchars($item['image_url']); ?>" alt="Product Image">
+                    <p id="productname"><?php echo htmlspecialchars($item['name']); ?></p>
+                    <p id="pricevalue">₱<?php echo number_format($item['price'], 2); ?></p>
+                    <div class="quantity">
+                        <button onclick="updateQuantity('<?php echo $item['_id']; ?>', 'increase')">+</button>
+                        <p><?php echo $item['quantity']; ?></p>
+                        <button onclick="updateQuantity('<?php echo $item['_id']; ?>', 'decrease')">-</button>
+                    </div>
+                    <span></span>
+                    <form method="POST" action="CartPage.php">
+                        <input type="hidden" name="cart_id" value="<?php echo $item['_id']; ?>">
+                        <button type="submit" class="delete"><img src="../img/trash.png" alt="">Delete</button>
+                    </form>
+                </div>
+            </div>
+        <?php endforeach; ?>
 
-            $userId = $_SESSION['user_id'];
-            $cartItems = iterator_to_array($cartCollection->find(['user_id' => $userId]));
-
-            if (count($cartItems) == 0) {
-                echo "<p>Your cart is empty. Add some products!</p>";
-            } else {
-                // Loop through cart items and display each product
-                foreach ($cartItems as $item) {
-                    $totalPrice = $item['price'] * $item['quantity'];
-                    echo "
-                    <div class='productbox'>
-                        <div class='productdetails'>
-                            <span></span>
-                            <input type='checkbox' id='selectitem' name='selectitem' value='selectitem'><span></span>
-                            <img src='../img/cartproduct.png' alt=''>
-                            <p id='productname'>" . htmlspecialchars($item['name']) . "</p>
-                            <p id='pricevalue'>₱" . number_format($item['price'], 2) . "</p>
-                            <div class='quantity'>
-                                <button onclick='updateQuantity(\"" . $item['_id'] . "\", \"increase\")'>+</button>
-                                <p>" . $item['quantity'] . "</p>
-                                <button onclick='updateQuantity(\"" . $item['_id'] . "\", \"decrease\")'>-</button>
-                            </div>
-                            <span></span>
-                            <form method='POST' action='CartPage.php'>
-                                <input type='hidden' name='cart_id' value='" . $item['_id'] . "'>
-                                <button type='submit' class='delete'><img src='../img/trash.png' alt=''>Delete</button>
-                            </form>
-                        </div>
-                    </div>";
-                }
-
-                // Calculate the total price
-                $totalAmount = 0;
-                foreach ($cartItems as $item) {
-                    $totalAmount += $item['price'] * $item['quantity'];
-                }
-                echo "<p id='totalitem'>Total: ₱" . number_format($totalAmount, 2) . "</p>";
-            }
-        }
-        ?>
+        <p id="totalitem">Total: ₱<?php echo number_format($totalAmount, 2); ?></p>
     </div>
 
     <div class="bottomoptions">
@@ -113,26 +99,7 @@ if (isset($_POST['cart_id'])) {
                 });
         };
 
-        // Update cart quantity
-        function updateQuantity(cartId, action) {
-            fetch('updateCartQuantity.php', {
-                method: 'POST',
-                body: JSON.stringify({ cartId: cartId, action: action }),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    location.reload();  // Reload the page to reflect updated quantities
-                } else {
-                    alert('Failed to update quantity');
-                }
-            });
-        }
     </script>
 </body>
-
 </html>
-
+        

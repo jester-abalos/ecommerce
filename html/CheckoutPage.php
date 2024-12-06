@@ -8,21 +8,39 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+// Fetch the user ID from the session
+$userId = $_SESSION['user_id'];
+
 // MongoDB connection
 $client = new MongoDB\Client("mongodb://localhost:27017");
+
+// Fetch user details (including address)
+$userCollection = $client->GADGETHUB->users;
+$user = $userCollection->findOne(['_id' => new MongoDB\BSON\ObjectId($userId)]);
+if (!$user) {
+    die("User not found. Please log in again.");
+}
+
 $cartCollection = $client->GADGETHUB->carts;
+$productCollection = $client->GADGETHUB->products; // Products collection
 
 // Fetch cart items for the logged-in user
-$userId = $_SESSION['user_id'];
 $cartItems = iterator_to_array($cartCollection->find(['user_id' => $userId]));
 
 if (count($cartItems) == 0) {
     die("Your cart is empty. Add products to your cart first.");
 }
 
-// Calculate the total price
+// Calculate the total price and fetch product details
 $totalAmount = 0;
-foreach ($cartItems as $item) {
+foreach ($cartItems as &$item) { // Use reference to modify cart item
+    // Fetch product details from the products collection
+    $product = $productCollection->findOne(['_id' => new MongoDB\BSON\ObjectId($item['product_id'])]);
+    if ($product) {
+        $item['image_url'] = $product['images'][0]['url'] ?? '../img/placeholder.png'; // Default to placeholder if no image
+    } else {
+        $item['image_url'] = '../img/placeholder.png'; // Fallback if product not found
+    }
     $totalAmount += $item['price'] * $item['quantity'];
 }
 
@@ -31,7 +49,8 @@ if (isset($_POST['place_order'])) {
     $deliveryAddress = $_POST['deliveryaddress'];
     $paymentMethod = $_POST['payment'];
     $messageForSeller = $_POST['message'];
-    // You can also save order details to the orders collection
+
+    // Save order details to the orders collection
     $ordersCollection = $client->GADGETHUB->orders;
     $order = [
         'user_id' => $userId,
@@ -47,13 +66,14 @@ if (isset($_POST['place_order'])) {
     // Insert order into orders collection
     $ordersCollection->insertOne($order);
 
-    // Optionally, clear the cart after placing the order
+    // Clear the cart after placing the order
     $cartCollection->deleteMany(['user_id' => $userId]);
 
     header('Location: OrderConfirmation.php');  // Redirect to a confirmation page
     exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,15 +88,18 @@ if (isset($_POST['place_order'])) {
     <div class="container">
         <form method="POST">
             <div class="checkoutbox">
+                <!-- Address Section -->
                 <div class="addressbox">
                     <label for="deliveryaddress"><img src="../img/locationpin.png" alt="">Delivery Address</label>
-                    <input type="text" id="deliveryaddress" name="deliveryaddress" required>
+                    <p id="deliveryaddress">
+                        <?php echo htmlspecialchars($user['address'] ?? 'No address found. Please update your profile.', ENT_QUOTES, 'UTF-8'); ?>
+                    </p>
                 </div>
 
+                <!-- Product List Section -->
                 <div class="productbox">
                     <p id="productsorderedtitle">Products Ordered</p>
                     <div class="productsordered">
-                        <!-- PHP loop to display cart items -->
                         <?php foreach ($cartItems as $item): ?>
                             <div class="product1">
                                 <div class="fieldnames">
@@ -85,15 +108,8 @@ if (isset($_POST['place_order'])) {
                                     <p>Sub-Total</p>
                                 </div>
                                 <div class="productdetails">
-                                    <img src="../img/checkoutimg.png" alt="">
+                                    <img src="<?php echo htmlspecialchars($item['image_url']); ?>" alt="Product Image">
                                     <p id="productname"><?php echo htmlspecialchars($item['name']); ?></p>
-
-                                    <!-- Check if variation exists -->
-                                    <?php if (isset($item['variation'])): ?>
-                                        <p id="variation"><?php echo htmlspecialchars($item['variation']); ?></p>
-                                    <?php else: ?>
-                                        <p id="variation">N/A</p>
-                                    <?php endif; ?>
                                     <p id="unitpricevalue">₱<?php echo number_format($item['price'], 2); ?></p>
                                     <p id="quantityvalue"><?php echo $item['quantity']; ?></p>
                                     <p id="subtotalvalue">₱<?php echo number_format($item['price'] * $item['quantity'], 2); ?></p>
@@ -103,22 +119,20 @@ if (isset($_POST['place_order'])) {
                     </div>
                 </div>
 
+                <!-- Message and Shipping Section -->
                 <div class="messageshipping">
                     <label for="message">Messages for Seller:</label>
                     <input type="text" id="message" name="message">
-                    <span></span>
-                    <label for="shipping">Shipping Option:</label>
-                    <div id="shipping">
-                        <button id="change">Change</button>
-                    </div>
                 </div>
 
+                <!-- Order Total Section -->
                 <div class="ordertotal">
                     <p id="ordertotallabel">Order Total (# Items):</p>
                     <p id="ordertotalvalue">₱<?php echo number_format($totalAmount, 2); ?></p>
                 </div>
             </div>
 
+            <!-- Payment and Summary Section -->
             <div class="summarybox">
                 <div class="paymentdiv">
                     <label for="payment">Payment Method:</label>
@@ -133,8 +147,6 @@ if (isset($_POST['place_order'])) {
                     <p id="merchandisevalue">₱<?php echo number_format($totalAmount, 2); ?></p>
                     <p>Shipping Subtotal:</p>
                     <p id="shippingvalue">₱85</p> <!-- Example shipping cost -->
-                    <p>Voucher Discount:</p>
-                    <p id="discountvalue">₱0</p> <!-- Example discount -->
                     <p>Total Payment:</p>
                     <p id="totalpaymentvalue">₱<?php echo number_format($totalAmount + 85, 2); ?></p>
                 </div>
@@ -154,5 +166,4 @@ if (isset($_POST['place_order'])) {
         };
     </script>
 </body>
-</html>
 </html>

@@ -141,3 +141,41 @@
     height: 30px;
 }
 
+.search-results-container {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 80%;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 300px;
+    overflow-y: auto;
+    display: none;
+    z-index: 10;
+}
+
+.search-result-item {
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.search-result-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.search-result-item p {
+    margin: 0;
+}
+
+.search-result-item:hover {
+    background-color: #f0f0f0;
+}
+
+#search-bar:focus + #search-results {
+    display: block;
+}

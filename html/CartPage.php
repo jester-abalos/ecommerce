@@ -1,10 +1,10 @@
 <?php
 require '../connection/connection.php';
-session_start();  // Start session to access user data
+session_start(); // Start session to access user data
 
 // Ensure the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');  // Redirect to login if not logged in
+    header('Location: login.php'); // Redirect to login if not logged in
     exit();
 }
 
@@ -28,9 +28,8 @@ if (isset($_POST['cart_id'])) {
     <link rel="stylesheet" href="../css/CartPage.css">
     <link rel="stylesheet" href="../css/navbar.css">
 </head>
-
 <body>
-    <?php include '../html/navbar.php' ?>
+    <?php include '../html/navbar.php'; ?>
     <div class="container">
         <div class="fieldnames">
             <span></span>
@@ -47,11 +46,15 @@ if (isset($_POST['cart_id'])) {
         } else {
             $client = new MongoDB\Client("mongodb://localhost:27017");
             $cartCollection = $client->GADGETHUB->carts;
-            $productCollection = $client->GADGETHUB->products;  // Define the product collection
+            $productCollection = $client->GADGETHUB->products; // Define the product collection
             $userId = $_SESSION['user_id'];
-            $cartItems = iterator_to_array($cartCollection->find(['user_id' => $userId]));
 
-            // Initialize $totalAmount
+            // Fetch cart items sorted by 'added_to_cart_at' in descending order
+            $cartItems = iterator_to_array($cartCollection->find(
+                ['user_id' => $userId],
+                ['sort' => ['added_to_cart_at' => -1]] // Sort by 'added_to_cart_at'
+            ));
+
             $totalAmount = 0;
 
             if (count($cartItems) == 0) {
@@ -63,8 +66,8 @@ if (isset($_POST['cart_id'])) {
 
                     // Check if the product has an image URL or use a default image
                     $productImage = (isset($product['images']) && !empty($product['images'])) 
-                    ? $product['images'][0]['url'] 
-                    : '../img/default-product.png';
+                        ? $product['images'][0]['url'] 
+                        : '../img/default-product.png';
 
                     echo "
                     <div class='productbox'>
@@ -83,9 +86,10 @@ if (isset($_POST['cart_id'])) {
                             <img src='" . htmlspecialchars($productImage, ENT_QUOTES) . "' alt='" . htmlspecialchars($product['name'], ENT_QUOTES) . "' class='product-image'>
                             <p id='productname'>" . htmlspecialchars($item['name']) . "</p>
                             <p id='pricevalue'>₱" . number_format($item['price'], 2) . "</p>
+                            <p id='quantity'>" . htmlspecialchars($item['quantity']) . "</p>
                             <form method='POST' action='CartPage.php'>
                                 <input type='hidden' name='cart_id' value='" . $item['_id'] . "'>
-                                <button type='submit' class='delete'><img src='../img/trash.png' alt=''></button>
+                                <button type='submit' id='img' class='delete'><img src='../img/trash.png' alt=''></button>
                             </form>
                         </div>
                     </div>";
@@ -93,9 +97,11 @@ if (isset($_POST['cart_id'])) {
             }
         }
         ?>
+
         <div class="bottomoptions">
             <input type="checkbox" id="selectall" name="selectall" value="selectall" onclick="toggleSelectAll(this)">
             <p id="selectalllabel">Select All</p>
+            
             <p id="totalitem">Total: ₱<span id="totalvalue">0.00</span></p>
             <button id="checkout" onclick="location.href='checkoutpage.php'">Check Out</button>
         </div>
@@ -135,14 +141,6 @@ if (isset($_POST['cart_id'])) {
             const formattedTotal = total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             document.getElementById("totalvalue").innerText = formattedTotal;
         }
-
-        function updateCartCount() {
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  const totalUniqueItems = cart.length;
-  document.querySelector('.cart-count').textContent = totalUniqueItems;
-}
-
-
-</script>
-    </body>
-    </html>
+    </script>
+</body>
+</html>

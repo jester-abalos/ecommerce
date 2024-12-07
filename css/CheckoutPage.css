@@ -262,11 +262,14 @@ border: none;
         border: 1px solid #000;
         width: 30%;
         max-height: fit-content;
-    display: flex;
+        display: flex;
         align-items: center;
         flex-direction: column;
         border-radius: 5%;
-        margin-top: 20px;
+  
+     margin-left: 900px;
+     
+        
     }
     
     .paymentdiv{

@@ -107,9 +107,12 @@ width: 35%;
 }
 
 #myorders{
-    background-color: #83837E;
+    background-color: #ffffff;
 }
 
+#myorders:hover{
+    background-color: #737577;
+}
 
 
 .ordercontainer{
@@ -139,7 +142,7 @@ align-items: center;
 }
 
 .fieldnames p{
-    width: 11%;
+    width: 10%;
     font-size: 1.3vw;
    
 }
@@ -160,9 +163,9 @@ align-items: center;
 .productbox{
     background-color: #e2e2e2;
     width  : 100%;
-    display: flex;
+    
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
     margin-bottom: 30px;
 
 }
@@ -170,27 +173,30 @@ align-items: center;
 .productdetails{
 
     width: 100%;
-display: flex;
-flex-direction: row;
-text-align: center;
-align-items: center;
-margin-top: 2%;
-padding: 1% 0;
-border-top: 1px #000 solid;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    margin-top: 2%;
+   
+
 }
 
 .productdetails img {
     width:8%;
     aspect-ratio: 1/1;
     object-fit: contain;
+    background-color: transparent;
 
 }
 
 .productdetails p{
-    width: 11%;
+    width: 15%;
     font-size: 1.3vw;
     
 }
+
 
 #statusvalue{
     font-weight: 800;

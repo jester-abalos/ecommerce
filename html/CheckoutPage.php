@@ -11,20 +11,20 @@ if (!isset($_SESSION['user_id'])) {
 // Fetch the user ID from the session
 $userId = $_SESSION['user_id'];
 
-
 // Fetch user details (including address)
 $userCollection = $client->GADGETHUB->users;
 $user = $userCollection->findOne(['_id' => new MongoDB\BSON\ObjectId($userId)]);
 if (!$user) {
     die("User not found. Please log in again.");
 }
-
 $cartCollection = $client->GADGETHUB->carts;
-$productCollection = $client->GADGETHUB->products; // Products collection
+  // Include all items, even if already checked out
 
-// Fetch cart items for the logged-in user
-$cartItems = iterator_to_array($cartCollection->find(['user_id' => $userId]));
 
+// Fetch all cart items for the logged-in user (not filtering by 'checkout' status)
+$cartItems = iterator_to_array($cartCollection->find(['user_id' => $userId]));  // Include all items, even if already checked out
+
+// Check if cart is empty
 if (count($cartItems) == 0) {
     die("Your cart is empty. Add products to your cart first.");
 }
@@ -42,23 +42,23 @@ foreach ($cartItems as &$item) { // Use reference to modify cart item
     $totalAmount += $item['price'] * $item['quantity'];
 }
 
-// Handle order placement
 if (isset($_POST['place_order'])) {
-    $deliveryAddress = $_POST['deliveryaddress'];
+    $deliveryAddress = $_POST['deliveryaddress'] ?? $user['address']; // Use default address if not set
     $paymentMethod = $_POST['payment'];
-    $messageForSeller = $_POST['message'];
+    $messageForSeller = $_POST['message'] ?? '';
 
     // Save order details to the orders collection
     $ordersCollection = $client->GADGETHUB->orders;
     $order = [
         'user_id' => $userId,
         'items' => $cartItems,
-        'total_amount' => $totalAmount,
-        'delivery_address' => $deliveryAddress,
+        'total_amount' => $totalAmount + 85, // Adding shipping cost to total amount
         'payment_method' => $paymentMethod,
-        'message_for_seller' => $messageForSeller,
         'status' => 'pending',  // Order status
-        'created_at' => new MongoDB\BSON\UTCDateTime()
+        'created_at' => new MongoDB\BSON\UTCDateTime(),
+        'delivery_address' => $deliveryAddress,
+        'message_for_seller' => $messageForSeller,
+        'shipping_cost' => 85  // Example shipping cost
     ];
 
     // Insert order into orders collection
@@ -70,7 +70,10 @@ if (isset($_POST['place_order'])) {
     header('Location: OrderConfirmation.php');  // Redirect to a confirmation page
     exit();
 }
+
 ?>
+
+<!-- The rest of the checkout page HTML -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -89,32 +92,37 @@ if (isset($_POST['place_order'])) {
             <div class="checkoutbox">
                 <!-- Address Section -->
                 <div class="addressbox">
-                    <label for="deliveryaddress"><img src="../img/locationpin.png" alt="">Delivery Address</label>
                     <p id="deliveryaddress">
-                        <?php echo htmlspecialchars($user['address'] ?? 'No address found. Please update your profile.', ENT_QUOTES, 'UTF-8'); ?>
+                        <label for="deliveryaddress"><img src="../img/locationpin.png" alt=""><?php echo htmlspecialchars($user['address'] ?? 'No address found. Please update your profile.', ENT_QUOTES, 'UTF-8'); ?></label>
+                        
                     </p>
+
                 </div>
 
                 <!-- Product List Section -->
                 <div class="productbox">
                     <p id="productsorderedtitle">Products Ordered</p>
                     <div class="productsordered">
-                        <?php foreach ($cartItems as $item): ?>
-                            <div class="product1">
-                                <div class="fieldnames">
-                                    <p>Unit Price</p>
-                                    <p>Quantity</p>
-                                    <p>Sub-Total</p>
+                        <?php if (count($cartItems) > 0): ?>
+                            <?php foreach ($cartItems as $item): ?>
+                                <div class="product1">
+                                    <div class="fieldnames">
+                                        <p>Unit Price</p>
+                                        <p>Quantity</p>
+                                        <p>Sub-Total</p>
+                                    </div>
+                                    <div class="productdetails">
+                                        <img src="<?php echo htmlspecialchars($item['image_url']); ?>" alt="Product Image">
+                                        <p id="productname"><?php echo htmlspecialchars($item['name']); ?></p>
+                                        <p id="unitpricevalue">₱<?php echo number_format($item['price'], 2); ?></p>
+                                        <p id="quantityvalue"><?php echo $item['quantity']; ?></p>
+                                        <p id="subtotalvalue">₱<?php echo number_format($item['price'] * $item['quantity'], 2); ?></p>
+                                    </div>
                                 </div>
-                                <div class="productdetails">
-                                    <img src="<?php echo htmlspecialchars($item['image_url']); ?>" alt="Product Image">
-                                    <p id="productname"><?php echo htmlspecialchars($item['name']); ?></p>
-                                    <p id="unitpricevalue">₱<?php echo number_format($item['price'], 2); ?></p>
-                                    <p id="quantityvalue"><?php echo $item['quantity']; ?></p>
-                                    <p id="subtotalvalue">₱<?php echo number_format($item['price'] * $item['quantity'], 2); ?></p>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p>No items in your cart.</p>
+                        <?php endif; ?>
                     </div>
                 </div>
 
@@ -149,6 +157,8 @@ if (isset($_POST['place_order'])) {
                     <p>Total Payment:</p>
                     <p id="totalpaymentvalue">₱<?php echo number_format($totalAmount + 85, 2); ?></p>
                 </div>
+                <!-- Back to Cart Button -->
+                <a href="CartPage.php" class="btn btn-secondary">Back to Cart</a>
 
                 <button type="submit" name="place_order" id="placeorder">Place Order</button>
             </div>

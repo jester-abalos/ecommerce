@@ -25,7 +25,8 @@ if (isset($_POST['add_to_cart'])) {
         $cartCollection = $client->GADGETHUB->carts;
 
         // Get selected variation from the form
-        $selectedVariation = $_POST['variation'] ?? 'N/A';  // Default to 'N/A' if no variation is selected
+       // Default to 'N/A' if no variation is selected
+        $selectedQuantity = $_POST['quantity'] ?? 1;
 
         // Prepare cart item
         $cartItem = [
@@ -33,11 +34,12 @@ if (isset($_POST['add_to_cart'])) {
             'product_id' => $product['_id'],
             'name' => $product['name'],
             'price' => $product['price']['amount'],
-            'quantity' => 1,  // Assuming 1 item is added for simplicity
+            'quantity' => $selectedQuantity,
+            'added_to_cart_at' => new MongoDB\BSON\UTCDateTime(),
         ];
 
         $cartCollection->insertOne($cartItem);  // Add to user's cart in DB
-        header('Location: CartPage.php');  // Redirect to cart page after adding to cart
+        header('Location: dashboard.php');  // Redirect to cart page after adding to cart
         exit();
     } else {
         // If the user is not logged in, redirect to login page
@@ -53,7 +55,8 @@ if (isset($_POST['buy_now'])) {
         $cartCollection = $client->GADGETHUB->carts;
 
         // Get selected variation from the form
-        $selectedVariation = $_POST['variation'] ?? 'N/A';  // Default to 'N/A' if no variation is selected
+       // Default to 'N/A' if no variation is selected
+        $selectedQuantity = $_POST['quantity'] ?? 1;
 
         // Prepare cart item
         $cartItem = [
@@ -61,7 +64,7 @@ if (isset($_POST['buy_now'])) {
             'product_id' => $product['_id'],
             'name' => $product['name'],
             'price' => $product['price']['amount'],
-            'quantity' => 1,  // Assuming 1 item is added for simplicity
+            'quantity' => $selectedQuantity,  // Assuming 1 item is added for simplicity
         ];
 
         $cartCollection->insertOne($cartItem);  // Add to user's cart in DB
@@ -74,10 +77,8 @@ if (isset($_POST['buy_now'])) {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -100,13 +101,14 @@ if (isset($_POST['buy_now'])) {
             <?php if (isset($product['discount']) && $product['discount']['value'] > 0): ?>
                 <p class="ProductDiscount"><?php echo $product['discount']['value']; ?>% OFF</p>
             <?php endif; ?>
-
             <p class="ProductStock"><?php echo $product['inventory']['stock']; ?> items in stock</p>
 
             <div class="CartorBuy">
                 <form method="post" action="">
+                    <input type="number" name="quantity" value="1" min="1" max="<?php echo $product['inventory']['stock']; ?>">
                     <button type="submit" name="add_to_cart" id="addtocart">ADD TO CART</button>
                     <button type="submit" name="buy_now" id="buynow">BUY NOW</button>
+                
                 </form>
             </div>
         </div>
@@ -172,3 +174,4 @@ if (isset($_POST['buy_now'])) {
 </body>
 
 </html>
+

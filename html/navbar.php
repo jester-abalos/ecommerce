@@ -5,7 +5,8 @@
     <ul class="navbar-links" id="navbar-links">
         <li><a href="Dashboard.php">Home</a></li>
         <li><a href="Categories.php">Categories</a></li>
-        <li><a href="#Brands">Brands</a></li>
+        <li><a href="OrdersPage.php">Orders</a></li>
+        
         
     </ul>
     <div class="search-container">
@@ -16,7 +17,7 @@
         <p><?php echo htmlspecialchars($user['username'] ?? '', ENT_QUOTES, 'UTF-8'); ?></p>
     </div>
     <div class="cart-user">
-        <img src="/img/cart.png" alt="Cart">
+        <a href="CartPage.php"><img src="/img/cart.png" alt="Cart"></a>
         <span></span>
         <a href="ManageProfile.php"><img src="/img/user.png" alt="User"></a>
     </div>

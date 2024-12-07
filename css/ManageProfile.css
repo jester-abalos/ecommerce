@@ -2,72 +2,63 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
-
 }
 
 body {
     height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    background-color: white;
     background-size: cover;
     background-position: center;
 }
 
 .container {
-    
     width: 100%;
-  
     margin-top: 100px;
     display: flex;
     flex-direction: row;
-    
 }
 
 .menu {
-width: 300px;
-
-display: flex;
-flex-direction: column;
-padding-left: 20px;
-
-
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
 }
 
-.useraccount{
+.useraccount {
     width: 100%;
     display: flex;
     flex-direction: row;
-    border-bottom: 3px #D9D9D9 solid;
+    border-bottom: 3px solid #D9D9D9;
     margin-bottom: 10px;
     padding: 10px 0;
 }
 
-.profilepic{
-height:100%;
-width: 35%;
-
+.profilepic {
+    height: 100%;
+    width: 35%;
 }
 
-.profilepic img{
+.profilepic img {
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
 
-.profilename{
-    height:100%;
+.profilename {
+    height: 100%;
     width: 65%;
-   
     text-align: center;
-    align-content: center;
-  }
-  
- 
-.menu button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu button {
     width: 170px;
-  font-weight: 750;
+    font-weight: 750;
     font-size: 16px;
     cursor: pointer;
     display: flex;
@@ -76,7 +67,7 @@ width: 35%;
     align-items: center;
     padding: 10px;
     margin: 5px 0;
-    border:none;
+    border: none;
     background-color: transparent;
 }
 
@@ -91,108 +82,94 @@ width: 35%;
     color: darkred;
 }
 
-.menu button img{
+.menu button img {
     width: 30px;
     height: 30px;
     vertical-align: middle;
     margin-right: 10px;
 }
 
-
-.menu span{
-
+.menu span {
     width: 165px;
     height: 3px;
     background-color: #D9D9D9;
     margin: 3px 5px;
-    border:none;
+    border: none;
 }
 
-#myaccount{
+#myaccount {
     background-color: #83837E;
 }
 
-
-
-.settings{
+.settings {
     width: 90%;
- 
     background-color: #fefefe;
     border-radius: 20px;
     margin: 0 3%;
     padding: 2% 5%;
 }
 
-.settingsheader{
+.settingsheader {
     width: 100%;
     height: 60px;
-    border-bottom: #636361 3px solid;
+    border-bottom: 3px solid #636361;
     margin-bottom: 50px;
 }
 
-.settingsheader h2{
+.settingsheader h2 {
     font-size: 25px;
     font-weight: 800;
-    
 }
 
-form{
-    width:80%;
+form {
+    width: 80%;
 }
 
-form label{
+form label {
     display: inline-block;
     width: 32%;
     font-size: 20px;
     margin-right: 10%;
     font-weight: bold;
-  
     text-align: right;
-     margin-bottom: 50px;
-   
-    
+    margin-bottom: 20px; /* Reduced the bottom margin for better spacing */
 }
 
-form input{
+form input {
     width: 45%;
     border: 1px solid #313131;
     border-radius: 3px;
     height: 40px;
-  
-
+    padding-left: 10px; /* Added padding inside input fields */
 }
 
-#male, #female{
-padding-top: 30px;
-width: 4%;
-
-vertical-align: middle;
+#male, #female {
+    padding-top: 30px;
+    width: 4%;
+    vertical-align: middle;
 }
 
 #male:checked,
 #female:checked {
     accent-color: #636361;
-
 }
-#labelmale, #labelfemale{
+
+#labelmale, #labelfemale {
     width: 5%;
-   padding-left: 5px;
-   
+    padding-left: 5px;
     text-align: left;
-   
-    
 }
 
-#dateofbirth{
-width: 30%;
-
+#dateofbirth {
+    width: 30%;
 }
+
 #save {
     display: block;
     background-color: #e2e2e2;
     height: 50px;
     width: 120px;
-    margin: 0 0 30px 19%;
+    margin: 20px auto; /* Centered the button and added spacing */
     cursor: pointer;
     border: none;
     border-radius: 5px;
@@ -200,4 +177,16 @@ width: 30%;
 
 #save:hover {
     background-color: #d0d0d0;
+}
+
+
+body.modal-open {
+    padding-right: 0 !important;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1050;
 }

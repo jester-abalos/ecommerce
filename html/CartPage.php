@@ -1,44 +1,46 @@
-<?php 
+<?php
 require '../connection/connection.php';
-session_start();
+session_start(); // Start session to access user data
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
+    header('Location: login.php'); // Redirect to login if not logged in
     exit();
 }
 
-
 if (isset($_POST['checkout'])) {
     if (isset($_SESSION['user_id'])) {
-        // Assume user is logged in, add product to cart in the database
         $checkoutCollection = $client->GADGETHUB->checkouts;
+        $productsCollection = $client->GADGETHUB->products;
 
-        // Get selected variation from the form
-       // Default to 'N/A' if no variation is selected
         $selectedQuantity = $_POST['quantity'] ?? 1;
 
-        // Prepare cart item
-        $cartItem = [
+        $checkoutItem = [
             'user_id' => $_SESSION['user_id'],
             'product_id' => $product['_id'],
             'name' => $product['name'],
             'price' => $product['price']['amount'],
             'quantity' => $selectedQuantity,
-            'added_to_checkout_at' => new MongoDB\BSON\UTCDateTime(),
+            'checkout_date' => new MongoDB\BSON\UTCDateTime(),
         ];
 
-        $checkoutCollection->insertOne($checkoutItem);  // Add to user's cart in DB
-        header('Location: dashboard.php');  // Redirect to cart page after adding to cart
+        $checkoutCollection->insertOne($checkoutItem);
+
+        header('Location: CheckoutPage.php');
         exit();
     } else {
-        // If the user is not logged in, redirect to login page
         header('Location: login.php');
         exit();
     }
 }
 
-?>
+if (isset($_POST['cart_id'])) {
+    $cartId = $_POST['cart_id'];
+    $cartCollection->deleteOne(['_id' => new MongoDB\BSON\ObjectId($cartId)]);
 
+    header('Location: CartPage.php');
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +51,6 @@ if (isset($_POST['checkout'])) {
     <link rel="stylesheet" href="../css/navbar.css">
 </head>
 <body>
-<form method="POST" action=""  >
     <?php include '../html/navbar.php'; ?>
     <div class="container">
         <div class="fieldnames">
@@ -118,18 +119,18 @@ if (isset($_POST['checkout'])) {
             }
         }
         ?>
- 
-<div class="bottomoptions">
-   
 
+<form method="POST" action="CartPage.php" id="checkoutForm">
+<div class="bottomoptions">
+    
         <input type="checkbox" id="selectall" name="selectall" value="selectall" onclick="toggleSelectAll(this)">
         <p id="selectalllabel">Select All</p>
 
         <div id="selectedItemsContainer"></div> <!-- Hidden inputs will be added here dynamically -->
 
         <p id="totalitem">Total: ₱<span id="totalvalue">0.00</span></p>
-        <button type="submit" id="checkout" disabled>Proceed to Check Out</button>
-   
+        <button type="submit" id="checkout" name="checkout" disabled>Proceed to Check Out</button>
+    
 </div>
 </form>
     </div>

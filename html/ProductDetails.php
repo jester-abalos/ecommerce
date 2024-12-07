@@ -89,7 +89,7 @@ if (isset($_POST['buy_now'])) {
 </head>
 
 <body>
-    <div id="navbar-container"></div>
+   
     <div class="container">
         <div class="ProductImage">
             <img src="<?php echo htmlspecialchars($product['images'][0]['url']); ?>" alt="Product Image">
@@ -161,16 +161,6 @@ if (isset($_POST['buy_now'])) {
             <button id="footertwitter"></button>
         </div>
     </footer>
-
-    <script>
-    window.onload = function() {
-        fetch('navbar.php')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('navbar-container').innerHTML = data;
-            });
-    };
-</script>
 </body>
 
 </html>

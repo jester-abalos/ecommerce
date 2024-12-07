@@ -17,11 +17,9 @@ $user = $userCollection->findOne(['_id' => new MongoDB\BSON\ObjectId($userId)]);
 if (!$user) {
     die("User not found. Please log in again.");
 }
+
 $cartCollection = $client->GADGETHUB->carts;
-  // Include all items, even if already checked out
-
-
-// Fetch all cart items for the logged-in user (not filtering by 'checkout' status)
+// Include all items, even if already checked out
 $cartItems = iterator_to_array($cartCollection->find(['user_id' => $userId]));  // Include all items, even if already checked out
 
 // Check if cart is empty
@@ -33,11 +31,15 @@ if (count($cartItems) == 0) {
 $totalAmount = 0;
 foreach ($cartItems as &$item) { // Use reference to modify cart item
     // Fetch product details from the products collection
+    $productCollection = $client->GADGETHUB->products; // Assuming this is where your products are stored
     $product = $productCollection->findOne(['_id' => new MongoDB\BSON\ObjectId($item['product_id'])]);
+    
     if ($product) {
         $item['image_url'] = $product['images'][0]['url'] ?? '../img/placeholder.png'; // Default to placeholder if no image
+        $item['product_name'] = $product['name']; // Assuming 'name' is the field for product name
     } else {
         $item['image_url'] = '../img/placeholder.png'; // Fallback if product not found
+        $item['product_name'] = 'Unknown Product'; // Fallback product name
     }
     $totalAmount += $item['price'] * $item['quantity'];
 }
@@ -70,10 +72,7 @@ if (isset($_POST['place_order'])) {
     header('Location: OrderConfirmation.php');  // Redirect to a confirmation page
     exit();
 }
-
 ?>
-
-<!-- The rest of the checkout page HTML -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -81,98 +80,113 @@ if (isset($_POST['place_order'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout Page</title>
-    <link rel="stylesheet" href="../css/CheckoutPage.css">
-    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="/css/check.css">
+    <link rel="stylesheet" href="/css/navbar.css">
 </head>
 <body>
-  
-    <div id="navbar-container"></div>
-    <div class="container">
-        <form method="POST">
-            <div class="checkoutbox">
-                <!-- Address Section -->
-                <div class="addressbox">
-                    <p id="deliveryaddress">
-                        <label for="deliveryaddress"><img src="../img/locationpin.png" alt=""><?php echo htmlspecialchars($user['address'] ?? 'No address found. Please update your profile.', ENT_QUOTES, 'UTF-8'); ?></label>
-                        
-                    </p>
+    <?php include 'navbar.php' ?>
+    <form action="" method="POST">
+    <div class="checkout-container">
+        <div class="checkout-header">
+            <h2>Checkout</h2>
+            <p>Complete your order</p>
+        </div>
 
-                </div>
+        <div class="checkout-content">
+            
+            <!-- User Address Section -->
+            <div class="section address-section">
+                <h3>Shipping Address</h3>
+                <form action="#" method="POST">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="deliveryaddress" value="<?php echo htmlspecialchars($user['address']); ?>" required>
+                </form>
+            </div>
 
-                <!-- Product List Section -->
-                <div class="productbox">
-                    <p id="productsorderedtitle">Products Ordered</p>
-                    <div class="productsordered">
-                        <?php if (count($cartItems) > 0): ?>
-                            <?php foreach ($cartItems as $item): ?>
-                                <div class="product1">
-                                    <div class="fieldnames">
-                                        <p>Unit Price</p>
-                                        <p>Quantity</p>
-                                        <p>Sub-Total</p>
-                                    </div>
-                                    <div class="productdetails">
-                                        <img src="<?php echo htmlspecialchars($item['image_url']); ?>" alt="Product Image">
-                                        <p id="productname"><?php echo htmlspecialchars($item['name']); ?></p>
-                                        <p id="unitpricevalue">₱<?php echo number_format($item['price'], 2); ?></p>
-                                        <p id="quantityvalue"><?php echo $item['quantity']; ?></p>
-                                        <p id="subtotalvalue">₱<?php echo number_format($item['price'] * $item['quantity'], 2); ?></p>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <p>No items in your cart.</p>
-                        <?php endif; ?>
-                    </div>
-                </div>
-
-                <!-- Message and Shipping Section -->
-                <div class="messageshipping">
-                    <label for="message">Messages for Seller:</label>
-                    <input type="text" id="message" name="message">
-                </div>
-
-                <!-- Order Total Section -->
-                <div class="ordertotal">
-                    <p id="ordertotallabel">Order Total (# Items):</p>
-                    <p id="ordertotalvalue">₱<?php echo number_format($totalAmount, 2); ?></p>
+            <!-- Cart Items Section -->
+            <div class="section cart-section">
+                <h3>Order Summary</h3>
+                <div class="cart-items">
+                    <?php foreach ($cartItems as $item): ?>
+                        <div class="cart-item">
+                            <img src="<?php echo htmlspecialchars($item['image_url']); ?>" alt="Product Image">
+                            <div class="item-info">
+                                <p class="item-name"><?php echo htmlspecialchars($item['product_name']); ?></p>
+                                <p class="item-price">₱<?php echo number_format($item['price'], 2); ?></p>
+                                <p class="item-quantity">Quantity: <?php echo $item['quantity']; ?></p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
 
-            <!-- Payment and Summary Section -->
-            <div class="summarybox">
-                <div class="paymentdiv">
-                    <label for="payment">Payment Method:</label>
-                    <select name="payment" id="payment" required>
-                        <option value="cod">Cash on Delivery</option>
-                        <option value="paypal">Paypal</option>
-                    </select>
-                </div>
-
-                <div class="calculation">
-                    <p>Merchandise Subtotal:</p>
-                    <p id="merchandisevalue">₱<?php echo number_format($totalAmount, 2); ?></p>
-                    <p>Shipping Subtotal:</p>
-                    <p id="shippingvalue">₱85</p> <!-- Example shipping cost -->
-                    <p>Total Payment:</p>
-                    <p id="totalpaymentvalue">₱<?php echo number_format($totalAmount + 85, 2); ?></p>
-                </div>
-                <!-- Back to Cart Button -->
-                <a href="CartPage.php" class="btn btn-secondary">Back to Cart</a>
-
-                <button type="submit" name="place_order" id="placeorder">Place Order</button>
+            <!-- Payment Method Section -->
+            <div class="section payment-section">
+                <h3>Payment Method</h3>
+                <select name="payment" id="payment-method" required>
+                    <option value="cod">Cash on Delivery</option>
+                    <option value="paypal">PayPal</option>
+                </select>
             </div>
-        </form>
+
+            <!-- Summary Section -->
+            <div class="section summary-section">
+                <h3>Order Summary</h3>
+                <p>Merchandise Subtotal: ₱<?php echo number_format($totalAmount, 2); ?></p>
+                <p>Shipping: ₱85.00</p>
+                <p><strong>Total Payment: ₱<?php echo number_format($totalAmount + 85, 2); ?></strong></p>
+            </div>
+
+            <!-- Checkout Button -->
+            <div class="checkout-actions">
+            <a href="cartpage.php" class="btn btn-secondary">Back to Cart</a>
+            <button type="submit" name="place_order" class="btn btn-primary">Place Order</button>
+               
+            </div>
+        </div>
     </div>
+    </form>
+    <script src="https://www.paypal.com/sdk/js?client-id=AdnUxRv5JKvsOmhs2TL_BVcQP_OJEEtLfgOY6o6TddtPgWXbRHWMCKNoLsqkV1kqoxdYxcq13-RHTs4P&currency=USD"></script>
     <script>
-        // JavaScript to load the external navbar HTML
-        window.onload = function() {
-            fetch('navbar.php')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('navbar-container').innerHTML = data;
-                });
-        };
+        // Example of showing PayPal button when PayPal is selected
+        const paymentMethodSelect = document.getElementById('payment-method');
+        const paypalButtonContainer = document.createElement('div');
+        const codContainer = document.querySelector('.payment-section p:nth-child(1)');
+
+        paymentMethodSelect.addEventListener('change', function() {
+            if (paymentMethodSelect.value === 'paypal') {
+                // Render PayPal button
+                paypal.Buttons({
+                    createOrder: function(data, actions) {
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: '<?php echo $totalAmount + 85; ?>'
+                                }
+                            }]
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        return actions.order.capture().then(function(details) {
+                            alert('Transaction completed by ' + details.payer.name.given_name);
+                        });
+                    }
+                }).render(paypalButtonContainer);
+
+                // Hide COD option
+                codContainer.style.display = 'none';
+            } else {
+                // Hide PayPal button
+                paypalButtonContainer.style.display = 'none';
+
+                // Show COD option
+                codContainer.style.display = 'block';
+            }
+        });
+
+        // Adding the PayPal button to the DOM when needed
+        document.querySelector('.payment-section').appendChild(paypalButtonContainer);
     </script>
+
 </body>
 </html>

@@ -1,24 +1,44 @@
-<?php
+<?php 
 require '../connection/connection.php';
-session_start(); // Start session to access user data
+session_start();
 
-// Ensure the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php'); // Redirect to login if not logged in
+    header('Location: login.php');
     exit();
 }
 
-if (isset($_POST['cart_id'])) {
-    $cartId = $_POST['cart_id'];
 
-    // Remove the cart item from the database
-    $cartCollection->deleteOne(['_id' => new MongoDB\BSON\ObjectId($cartId)]);
+if (isset($_POST['checkout'])) {
+    if (isset($_SESSION['user_id'])) {
+        // Assume user is logged in, add product to cart in the database
+        $checkoutCollection = $client->GADGETHUB->checkouts;
 
-    // Redirect back to the cart page after removal
-    header('Location: CartPage.php');
-    exit();
+        // Get selected variation from the form
+       // Default to 'N/A' if no variation is selected
+        $selectedQuantity = $_POST['quantity'] ?? 1;
+
+        // Prepare cart item
+        $cartItem = [
+            'user_id' => $_SESSION['user_id'],
+            'product_id' => $product['_id'],
+            'name' => $product['name'],
+            'price' => $product['price']['amount'],
+            'quantity' => $selectedQuantity,
+            'added_to_checkout_at' => new MongoDB\BSON\UTCDateTime(),
+        ];
+
+        $checkoutCollection->insertOne($checkoutItem);  // Add to user's cart in DB
+        header('Location: dashboard.php');  // Redirect to cart page after adding to cart
+        exit();
+    } else {
+        // If the user is not logged in, redirect to login page
+        header('Location: login.php');
+        exit();
+    }
 }
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,6 +49,7 @@ if (isset($_POST['cart_id'])) {
     <link rel="stylesheet" href="../css/navbar.css">
 </head>
 <body>
+<form method="POST" action=""  >
     <?php include '../html/navbar.php'; ?>
     <div class="container">
         <div class="fieldnames">
@@ -97,14 +118,20 @@ if (isset($_POST['cart_id'])) {
             }
         }
         ?>
+ 
+<div class="bottomoptions">
+   
 
-        <div class="bottomoptions">
-            <input type="checkbox" id="selectall" name="selectall" value="selectall" onclick="toggleSelectAll(this)">
-            <p id="selectalllabel">Select All</p>
-            
-            <p id="totalitem">Total: ₱<span id="totalvalue">0.00</span></p>
-            <button id="checkout" onclick="location.href='checkoutpage.php'">Check Out</button>
-        </div>
+        <input type="checkbox" id="selectall" name="selectall" value="selectall" onclick="toggleSelectAll(this)">
+        <p id="selectalllabel">Select All</p>
+
+        <div id="selectedItemsContainer"></div> <!-- Hidden inputs will be added here dynamically -->
+
+        <p id="totalitem">Total: ₱<span id="totalvalue">0.00</span></p>
+        <button type="submit" id="checkout" disabled>Proceed to Check Out</button>
+   
+</div>
+</form>
     </div>
 
     <script>
@@ -140,7 +167,21 @@ if (isset($_POST['cart_id'])) {
 
             const formattedTotal = total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             document.getElementById("totalvalue").innerText = formattedTotal;
-        }
+            const checkoutButton = document.getElementById("checkout");
+            if (total > 0) {
+                checkoutButton.disabled = false;
+                checkoutButton.style.cursor = "pointer";
+                checkoutButton.innerText = "Check Out";
+                checkoutButton.onclick = function() {
+                    window.location.href = 'CheckoutPage.php';
+                };
+                
+
+            } else {
+                checkoutButton.disabled = true;
+                checkoutButton.innerText = "Add Products";
+                checkoutButton.onclick = null;
+            }}
     </script>
 </body>
 </html>

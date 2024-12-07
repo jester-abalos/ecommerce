@@ -57,10 +57,10 @@ body {
 
 .container{
   
-    width: 90%;
-    max-width: 1750px;
-    margin: 0 auto;
-    margin-top: 80px;
+    width: 100%;
+    max-width: 3000px;
+  
+    margin: 80px auto 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -71,14 +71,14 @@ body {
 .checkoutbox{
     background-color: #fff;
     
-    width: 60%;
-  max-height: fit-content;
+    width: 100%;
+    max-height: fit-content;
     display: flex;
         align-items: center;
         flex-direction: column;
-        justify-content: center;
+        
     border-radius:3% ;
-    border: #000 1px solid;
+    
     padding: 2%;
    
     
@@ -259,16 +259,15 @@ border: none;
 }
 
     .summarybox{
-        border: 1px solid #000;
-        width: 30%;
+        background-color: white;
+        width: 100%;
         max-height: fit-content;
         display: flex;
         align-items: center;
         flex-direction: column;
         border-radius: 5%;
   
-     margin-left: 900px;
-     
+  
         
     }
     
@@ -315,12 +314,12 @@ margin-left: 3%;
 }
 
 #placeorder{
-    background-color: #D9D9D9;
+    background-color: #636361;
     border: none;
     width: 30%;
     aspect-ratio: 9/3;
     font-size: 1.2vw;
-    color: #000;
+    color: white;
     font-family: LibreCaslonText;
     font-weight: 800;
     margin: 2%;
@@ -328,7 +327,11 @@ margin-left: 3%;
     cursor: pointer;
     border-radius: 5%;
 }
-    
+
+#placeorder:hover{
+    background-color: #dbdbd3;
+    color: black;
+}
     
     
 

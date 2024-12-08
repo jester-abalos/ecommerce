@@ -15,33 +15,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         // MongoDB collection
         $db = $client->GADGETHUB; // Access the GADGETHUB database
-        $collection = $db->admin; // Access the 'admin' collection
+        $admincollection = $db->admin; // Access the 'admin' collection
 
         // Check for the user by email
         $filter = ['email' => $email];
-        $user = $collection->findOne($filter);
+        $user = $admincollection->findOne($filter);
 
         if ($user) {
-            // Verify the password
-            if (password_verify($password, $user['passwordHash'])) { // Use `passwordHash` from the DB
-                // Store the user's unique ID and other relevant details in the session
-                $_SESSION['user_id'] = (string) $user['_id']; // Store user ID as string
-                $_SESSION['email'] = $user['email']; // Store email
+            // Check if the password field exists and is not null
+            if (!empty($user['password'])) { // Updated to match the correct field name
+                // Verify the password
+                if (password_verify($password, $user['password'])) { 
+                    // Store the user's unique ID and other relevant details in the session
+                    $_SESSION['user_id'] = (string) $user['_id']; // Store user ID as string
+                    $_SESSION['email'] = $user['email']; // Store email
 
-                // Set the user status to 'online' in the database when they log in
-                $userId = $_SESSION['user_id'];
-                
-                // Update the user's status to 'online'
-                $collection->updateOne(
-                    ['_id' => new MongoDB\BSON\ObjectId($userId)],
-                    ['$set' => ['status' => 'online']]
-                );
+                    // Set the user status to 'online' in the database when they log in
+                    $userId = $_SESSION['user_id'];
+                    
+                    // Update the user's status to 'online'
+                    $admincollection->updateOne(
+                        ['_id' => new MongoDB\BSON\ObjectId($userId)],
+                        ['$set' => ['status' => 'online']]
+                    );
 
-                // Redirect to the admin dashboard or homepage after successful login
-                header("Location: /admin/html/dashboard.html"); // Replace with your admin page path
-                exit();
+                    // Redirect to the admin dashboard or homepage after successful login
+                    header("Location: /admin/html/dashboard.php"); // Replace with your admin page path
+                    exit();
+                } else {
+                    echo "<script>alert('Incorrect password.');</script>";
+                }
             } else {
-                echo "<script>alert('Incorrect password.');</script>";
+                echo "<script>alert('Password is not set for this user.');</script>";
             }
         } else {
             echo "<script>alert('Email does not exist.');</script>";
@@ -49,6 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

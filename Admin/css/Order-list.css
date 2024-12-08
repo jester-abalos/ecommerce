@@ -57,3 +57,93 @@ span{
     justify-content: space-between;
     margin-top: 10px;
 }
+
+.Container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-top {
+    width: 100%;
+    height: 50px;
+    background-color: #2A2A2A;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px;
+}
+
+.nav-top .search-notification img {
+    width: 20px;
+    height: 20px;
+    margin: 0 10px;
+}
+
+.nav-top .Admin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    border: #ffffff solid 1px;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.nav-top .Admin h6 {
+    font-family: inter-regular;
+    font-size: 15px;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.nav-top .Admin h6 img {
+    width: 15px;
+    height: 15px;
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.Header-Container {
+    width: 99%;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+}
+
+.Header-Container h1 {
+    font-family: Rubik-semibold;
+    font-size: 30px;
+    color: #000000;
+}
+
+.Header-Container .directory {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Header-Container .directory .calendar {
+    display: flex;
+    flex-direction: row;
+    margin-right: 20px;
+}
+
+.Header-Container .directory .calendar img {
+    width: 20px;
+    height: 20px;
+    margin: 0 10px;
+}
+
+.Header-Container p {
+    font-family: Open-sans-semibold;
+    font-size: 15px;
+    color: #000000;
+    margin: 0;
+}

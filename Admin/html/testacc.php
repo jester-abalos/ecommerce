@@ -1,5 +1,5 @@
 <?php
-require '../connection/connection.php';
+require '../../vendor/autoload.php';
 
 $client = new MongoDB\Client("mongodb://localhost:27017");
 $database = $client->GADGETHUB;
@@ -12,12 +12,13 @@ $email = "123@test.com";
 $hashedPassword = password_hash($plainPassword, PASSWORD_BCRYPT);
 
 $account = [
+    "email" => $email,
     "password" => $hashedPassword,
-    "adminUsername" => $adminUsername,
+    "adminUsername" => $adminUsername,  
     "verified" => true,
     "loginStatus" => true,
     "lastLogin" => "",
-    "email" => $email
+    
 ];
 
 try {

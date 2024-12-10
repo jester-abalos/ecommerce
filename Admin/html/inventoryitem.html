@@ -1,0 +1,41 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Inventory Item</title>
+        <link rel="stylesheet" href="../css/inventoryitem.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="product-header">
+                <h1>Product Name</h1>
+                <button onclick="window.location.href = 'inventory.html';">Back to Inventory</button>
+            </div>
+
+            <div class="product-details">
+                
+
+                <div class="product-info">
+                    <p><strong>Product ID:</strong> P12345</p>
+                    <p><strong>Category:</strong> Electronics</p>
+                    <p><strong>Price:</strong> $499.99</p>
+                    <p><strong>Quantity:</strong> 150</p>
+                    <p><strong>Availability:</strong> In-stock</p>
+                </div>
+                
+                
+                <div class="product-image">
+                    <img src="path/to/product-image.jpg" alt="Product Image">
+                </div>
+            </div>
+
+            <div class="product-actions">
+                <button class="edit-button" onclick="window.location.href = 'editproduct.html';">Edit Product</button>
+                <button class="delete-button" onclick="deleteProduct()">Delete Product</button>
+            </div>
+        </div>
+
+    
+    </body>
+    </html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Add</title>
+    <link rel="stylesheet" href="../css/inventoryadd.css">
+</head>
+<body>
+    <div class="containeradd">
+
+        <!-- Title Section -->
+        <h1>New Product</h1>
+
+        <!-- Image Upload Section -->
+        <div class="image-upload">
+            <div class="image-box">
+                <p>No image selected</p>
+            </div>
+            <button type="button" class="add-image-button">Add Image Here</button>
+        </div>
+
+        <!-- Form Section -->
+        <form action="#" method="POST">
+            <label for="productName">Product Name:</label>
+            <input type="text" id="productName" name="productName" required><br><br>
+
+            <label for="productId">Product ID:</label>
+            <input type="text" id="productId" name="productId" required><br><br>
+
+            <label for="category">Category:</label>
+            <input type="text" id="category" name="category" required><br><br>
+
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" step="0.01" required><br><br>
+
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" required><br><br>
+
+            <div class="button-container">
+                <button type="button" class="discard">Discard</button>
+                <button type="button" class="addproduct">Add Product</button>
+            </div>
+        </form>
+
+    </div>
+
+</body>
+</html>
